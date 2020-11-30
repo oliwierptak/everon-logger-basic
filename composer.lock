@@ -4,15 +4,21 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c84584e8436785704ba41e95a84ba51a",
+    "content-hash": "e1d6e297bdfe96ea2f84a1970e23cd4b",
     "packages": [
         {
             "name": "everon/logger",
-            "version": "dev-master",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/oliwierptak/everon-logger.git",
+                "reference": "a4e3ad0d8108ed3ac0c7a01bedc7d02ff36677b1"
+            },
             "dist": {
-                "type": "path",
-                "url": "../everon-logger",
-                "reference": "bfc48fbf3d1d2f664640f7e837acab7ee9891cef"
+                "type": "zip",
+                "url": "https://api.github.com/repos/oliwierptak/everon-logger/zipball/a4e3ad0d8108ed3ac0c7a01bedc7d02ff36677b1",
+                "reference": "a4e3ad0d8108ed3ac0c7a01bedc7d02ff36677b1",
+                "shasum": ""
             },
             "require": {
                 "monolog/monolog": "^2.1",
@@ -35,34 +41,16 @@
                     "Everon\\": "src/"
                 }
             },
-            "autoload-dev": {
-                "psr-4": {
-                    "EveronLoggerTests\\Suit\\": "tests/suit/",
-                    "EveronLoggerTests\\Stub\\": "tests/stub/"
-                }
-            },
-            "scripts": {
-                "popo": [
-                    "vendor/bin/popo generate -c .popo"
-                ],
-                "tests": [
-                    "vendor/bin/phpunit --testdox --no-coverage"
-                ],
-                "tests-ac": [
-                    "vendor/bin/phpunit --testdox --no-coverage --group-acceptance tests/suit/Acceptance/"
-                ],
-                "tests-coverage": [
-                    "vendor/bin/phpunit --testdox --group-acceptance,default"
-                ]
-            },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
             "description": "PSR-3 compliant logger with pluggable architecture and unified, shareable configuration based on Monolog",
-            "transport-options": {
-                "symlink": false,
-                "relative": true
-            }
+            "support": {
+                "issues": "https://github.com/oliwierptak/everon-logger/issues",
+                "source": "https://github.com/oliwierptak/everon-logger/tree/1.0.0"
+            },
+            "time": "2020-11-30T08:35:43+00:00"
         },
         {
             "name": "monolog/monolog",
@@ -2220,16 +2208,16 @@
         },
         {
             "name": "symfony/console",
-            "version": "v5.1.9",
+            "version": "v5.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/console.git",
-                "reference": "037b57ac42cafb64b7b55273fe1786f35d623077"
+                "reference": "3e0564fb08d44a98bd5f1960204c958e57bd586b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/console/zipball/037b57ac42cafb64b7b55273fe1786f35d623077",
-                "reference": "037b57ac42cafb64b7b55273fe1786f35d623077",
+                "url": "https://api.github.com/repos/symfony/console/zipball/3e0564fb08d44a98bd5f1960204c958e57bd586b",
+                "reference": "3e0564fb08d44a98bd5f1960204c958e57bd586b",
                 "shasum": ""
             },
             "require": {
@@ -2290,8 +2278,14 @@
             ],
             "description": "Symfony Console Component",
             "homepage": "https://symfony.com",
+            "keywords": [
+                "cli",
+                "command line",
+                "console",
+                "terminal"
+            ],
             "support": {
-                "source": "https://github.com/symfony/console/tree/v5.1.9"
+                "source": "https://github.com/symfony/console/tree/v5.2.0"
             },
             "funding": [
                 {
@@ -2307,11 +2301,11 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2020-11-28T10:57:20+00:00"
+            "time": "2020-11-28T11:24:18+00:00"
         },
         {
             "name": "symfony/finder",
-            "version": "v5.1.9",
+            "version": "v5.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/finder.git",
@@ -2352,7 +2346,7 @@
             "description": "Symfony Finder Component",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/finder/tree/v5.2.0-RC2"
+                "source": "https://github.com/symfony/finder/tree/v5.2.0"
             },
             "funding": [
                 {
@@ -2937,16 +2931,16 @@
         },
         {
             "name": "symfony/string",
-            "version": "v5.1.9",
+            "version": "v5.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/string.git",
-                "reference": "a97573e960303db71be0dd8fda9be3bca5e0feea"
+                "reference": "40e975edadd4e32cd16f3753b3bad65d9ac48242"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/string/zipball/a97573e960303db71be0dd8fda9be3bca5e0feea",
-                "reference": "a97573e960303db71be0dd8fda9be3bca5e0feea",
+                "url": "https://api.github.com/repos/symfony/string/zipball/40e975edadd4e32cd16f3753b3bad65d9ac48242",
+                "reference": "40e975edadd4e32cd16f3753b3bad65d9ac48242",
                 "shasum": ""
             },
             "require": {
@@ -3000,7 +2994,7 @@
                 "utf8"
             ],
             "support": {
-                "source": "https://github.com/symfony/string/tree/v5.1.9"
+                "source": "https://github.com/symfony/string/tree/v5.2.0"
             },
             "funding": [
                 {
@@ -3016,20 +3010,20 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2020-10-24T12:01:57+00:00"
+            "time": "2020-10-24T12:08:07+00:00"
         },
         {
             "name": "symfony/var-dumper",
-            "version": "v5.1.9",
+            "version": "v5.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/var-dumper.git",
-                "reference": "006fc2312ee014e1ba46c01185423c010310d00f"
+                "reference": "173a79c462b1c81e1fa26129f71e41333d846b26"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/var-dumper/zipball/006fc2312ee014e1ba46c01185423c010310d00f",
-                "reference": "006fc2312ee014e1ba46c01185423c010310d00f",
+                "url": "https://api.github.com/repos/symfony/var-dumper/zipball/173a79c462b1c81e1fa26129f71e41333d846b26",
+                "reference": "173a79c462b1c81e1fa26129f71e41333d846b26",
                 "shasum": ""
             },
             "require": {
@@ -3088,7 +3082,7 @@
                 "dump"
             ],
             "support": {
-                "source": "https://github.com/symfony/var-dumper/tree/v5.1.9"
+                "source": "https://github.com/symfony/var-dumper/tree/v5.2.0"
             },
             "funding": [
                 {
@@ -3104,7 +3098,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2020-11-26T23:46:31+00:00"
+            "time": "2020-11-27T00:39:34+00:00"
         },
         {
             "name": "theseer/tokenizer",
@@ -3212,9 +3206,7 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "everon/logger": 20
-    },
+    "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
