@@ -120,7 +120,8 @@ Sends messages to any PHP stream handler.
     use Everon\Logger\Configurator\Plugin\StreamLoggerPluginConfigurator;
   
     $streamPluginConfigurator = (new StreamLoggerPluginConfigurator)
-        ->setLogLevel('debug');
+        ->setLogLevel('debug')
+        ->setStreamLocation('/tmp/debug.log');
     
     $configurator = (new LoggerConfigurator)
         ->addPluginConfigurator($streamPluginConfigurator);
