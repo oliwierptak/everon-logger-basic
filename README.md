@@ -2,14 +2,12 @@
 
 Set of plugins that require no extra vendor dependencies for [EveronLogger](https://github.com/oliwierptak/everon-logger).
 
-## Plugins
-
 - ErrorLog
 - Nullee
 - Stream
 - Syslog
 
----
+## Plugins
  
 ### ErrorLog
 
