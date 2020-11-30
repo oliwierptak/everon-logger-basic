@@ -17,7 +17,7 @@ class ErrorLogLoggerPluginTest extends AbstractPluginLoggerTest
     public function test_should_not_log_without_message_type(): void
     {
         $this->expectException(HandlerBuildException::class);
-        $this->expectExceptionMessage('Could not build handler in plugin: "Everon\Logger\Plugin\ErrorLog\ErrorLogLoggerPlugin". Error: Required value of "messageType" has not been set');
+        $this->expectExceptionMessage('Could not build handler for plugin: "Everon\Logger\Plugin\ErrorLog\ErrorLogLoggerPlugin". Error: Required value of "messageType" has not been set');
 
         $this->configurator
             ->getConfiguratorByPluginName(ErrorLogLoggerPlugin::class)

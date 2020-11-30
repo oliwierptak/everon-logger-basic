@@ -56,76 +56,6 @@ class TestLoggerConfigurator
 
     protected array $updateMap = [];
 
-    /**
-     * @param string $property
-     *
-     * @return mixed|null
-     */
-    protected function popoGetValue(string $property)
-    {
-        if (!isset($this->data[$property])) {
-            if ($this->typeIsObject($this->propertyMapping[$property])) {
-                $popo = new $this->propertyMapping[$property];
-                $this->data[$property] = $popo;
-            }
-            else {
-                return null;
-            }
-        }
-
-        return $this->data[$property];
-    }
-
-    /**
-     * @param string $property
-     * @param mixed $value
-     *
-     * @return void
-     */
-    protected function popoSetValue(string $property, $value): void
-    {
-        $this->data[$property] = $value;
-
-        $this->updateMap[$property] = true;
-    }
-
-    /**
-     * @param string $property
-     *
-     * @return void
-     * @throws UnexpectedValueException
-     */
-    protected function assertPropertyValue(string $property): void
-    {
-        if (!isset($this->data[$property])) {
-            throw new UnexpectedValueException(sprintf(
-                'Required value of "%s" has not been set',
-                $property
-            ));
-        }
-    }
-
-    /**
-     * @param string $propertyName
-     * @param mixed $value
-     *
-     * @return void
-     * @throws \InvalidArgumentException
-     */
-    protected function addCollectionItem(string $propertyName, $value): void
-    {
-        $type = trim(strtolower($this->propertyMapping[$propertyName]));
-        $collection = $this->popoGetValue($propertyName) ?? [];
-
-        if (!is_array($collection) || $type !== 'array') {
-            throw new InvalidArgumentException('Cannot add item to non array type: ' . $propertyName);
-        }
-
-        $collection[] = $value;
-
-        $this->popoSetValue($propertyName, $collection);
-    }
-
     public function toArray(): array
     {
         $data = [];
@@ -155,6 +85,11 @@ class TestLoggerConfigurator
         }
 
         return $data;
+    }
+
+    protected function isCollectionItem(string $key): bool
+    {
+        return array_key_exists($key, $this->collectionItems);
     }
 
     public function fromArray(array $data): TestLoggerConfigurator
@@ -206,6 +141,11 @@ class TestLoggerConfigurator
         return $this;
     }
 
+    protected function typeIsObject(string $value): bool
+    {
+        return $value[0] === '\\' && ctype_upper($value[1]);
+    }
+
     /**
      * @param string $type
      * @param mixed $value
@@ -236,14 +176,17 @@ class TestLoggerConfigurator
         return $value;
     }
 
-    protected function isCollectionItem(string $key): bool
+    /**
+     * @param string $property
+     * @param mixed $value
+     *
+     * @return void
+     */
+    protected function popoSetValue(string $property, $value): void
     {
-        return array_key_exists($key, $this->collectionItems);
-    }
+        $this->data[$property] = $value;
 
-    protected function typeIsObject(string $value): bool
-    {
-        return $value[0] === '\\' && ctype_upper($value[1]);
+        $this->updateMap[$property] = true;
     }
 
     /**
@@ -252,6 +195,26 @@ class TestLoggerConfigurator
     public function getMessage(): ?string
     {
         return $this->popoGetValue('message');
+    }
+
+    /**
+     * @param string $property
+     *
+     * @return mixed|null
+     */
+    protected function popoGetValue(string $property)
+    {
+        if (!isset($this->data[$property])) {
+            if ($this->typeIsObject($this->propertyMapping[$property])) {
+                $popo = new $this->propertyMapping[$property];
+                $this->data[$property] = $popo;
+            }
+            else {
+                return null;
+            }
+        }
+
+        return $this->data[$property];
     }
 
     /**
@@ -278,6 +241,22 @@ class TestLoggerConfigurator
         $this->assertPropertyValue('message');
 
         return (string) $this->popoGetValue('message');
+    }
+
+    /**
+     * @param string $property
+     *
+     * @return void
+     * @throws UnexpectedValueException
+     */
+    protected function assertPropertyValue(string $property): void
+    {
+        if (!isset($this->data[$property])) {
+            throw new UnexpectedValueException(sprintf(
+                'Required value of "%s" has not been set',
+                $property
+            ));
+        }
     }
 
     /**
@@ -476,6 +455,27 @@ class TestLoggerConfigurator
         $this->addCollectionItem('context', $item);
 
         return $this;
+    }
+
+    /**
+     * @param string $propertyName
+     * @param mixed $value
+     *
+     * @return void
+     * @throws \InvalidArgumentException
+     */
+    protected function addCollectionItem(string $propertyName, $value): void
+    {
+        $type = trim(strtolower($this->propertyMapping[$propertyName]));
+        $collection = $this->popoGetValue($propertyName) ?? [];
+
+        if (!is_array($collection) || $type !== 'array') {
+            throw new InvalidArgumentException('Cannot add item to non array type: ' . $propertyName);
+        }
+
+        $collection[] = $value;
+
+        $this->popoSetValue($propertyName, $collection);
     }
 
     /**
