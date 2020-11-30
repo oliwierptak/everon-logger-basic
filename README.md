@@ -177,7 +177,6 @@ Sends messages to syslog service.
 ## Requirements
 
 - PHP v7.4
-- [EveronLogger](https://github.com/oliwierptak/everon-logger)
 
 ## Installation
 
