@@ -163,7 +163,8 @@ Sends messages to syslog service.
     use Everon\Logger\Configurator\Plugin\SyslogLoggerPluginConfigurator;
   
     $syslogPluginConfigurator = (new SyslogLoggerPluginConfigurator)
-        ->setLogLevel('debug');
+        ->setLogLevel('warning')
+        ->setIdent('foo-bar-ident');
     
     $configurator = (new LoggerConfigurator)
         ->addPluginConfigurator($syslogPluginConfigurator);
