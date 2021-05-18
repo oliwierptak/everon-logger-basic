@@ -176,7 +176,9 @@ Sends messages to syslog service.
 
 ## Requirements
 
-- PHP v7.4
+- PHP v8.x
+
+_Note_: Use v1.x for compatibility with PHP v7.4.
 
 ## Installation
 
