@@ -6,6 +6,7 @@ namespace Everon\Logger\Plugin\Nullee;
 
 use Everon\Logger\Configurator\Plugin\NulleeLoggerPluginConfigurator;
 use Everon\Logger\Contract\Plugin\LoggerPluginInterface;
+use JetBrains\PhpStorm\Pure;
 use Monolog\Handler\HandlerInterface;
 use Monolog\Handler\NullHandler;
 
@@ -18,7 +19,7 @@ class NulleeLoggerPlugin implements LoggerPluginInterface
         $this->configurator = $configurator;
     }
 
-    public function canRun(): bool
+    #[Pure] public function canRun(): bool
     {
         return $this->configurator->hasLogLevel();
     }
