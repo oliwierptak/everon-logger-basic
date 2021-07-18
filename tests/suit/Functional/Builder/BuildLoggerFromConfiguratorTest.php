@@ -5,6 +5,7 @@ declare(strict_types = 1);
 namespace EveronLoggerTests\Suit\Functional\Builder;
 
 use Everon\Logger\Configurator\Plugin\StreamLoggerPluginConfigurator;
+use Everon\Logger\Exception\ConfiguratorValidationException;
 use Everon\Logger\Plugin\Stream\StreamLoggerPlugin;
 use EveronLoggerTests\Stub\Processor\MemoryUsageProcessorStub;
 use EveronLoggerTests\Suit\Configurator\TestLoggerConfigurator;
@@ -20,12 +21,34 @@ class BuildLoggerFromConfiguratorTest extends AbstractPluginLoggerTest
         $this->assertInstanceOf(LoggerInterface::class, $logger);
     }
 
+    public function test_should_throw_exception_when_builder_validation_fails(): void
+    {
+        $this->expectException(ConfiguratorValidationException::class);
+        $this->expectExceptionMessage('Required value of "streamLocation" has not been set');
+
+        $streamPluginConfigurator = (new StreamLoggerPluginConfigurator())
+            ->setPluginClass(StreamLoggerPlugin::class);
+
+        $this->configurator
+            ->setValidateConfiguration(true)
+            ->addPluginConfigurator($streamPluginConfigurator);
+
+        $logger = $this->facade->buildLogger($this->configurator);
+
+        $logger->debug('foo bar');
+
+        $this->assertFileDoesNotExist($this->logFilename);
+    }
+
     public function test_should_not_log_without_logFile(): void
     {
         $streamPluginConfigurator = (new StreamLoggerPluginConfigurator())
             ->setPluginClass(StreamLoggerPlugin::class);
 
-        $this->configurator->addPluginConfigurator($streamPluginConfigurator);
+        $this->configurator
+            ->setValidateConfiguration(false)
+            ->addPluginConfigurator($streamPluginConfigurator);
+
         $logger = $this->facade->buildLogger($this->configurator);
 
         $logger->debug('foo bar');

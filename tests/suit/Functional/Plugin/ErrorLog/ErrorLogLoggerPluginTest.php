@@ -5,7 +5,7 @@ declare(strict_types = 1);
 namespace EveronLoggerTests\Suit\Functional\Plugin\ErrorLog;
 
 use Everon\Logger\Configurator\Plugin\ErrorLogLoggerPluginConfigurator;
-use Everon\Logger\Exception\HandlerBuildException;
+use Everon\Logger\Exception\ConfiguratorValidationException;
 use Everon\Logger\Plugin\ErrorLog\ErrorLogLoggerPlugin;
 use EveronLoggerTests\Stub\Processor\MemoryUsageProcessorStub;
 use EveronLoggerTests\Suit\Configurator\TestLoggerConfigurator;
@@ -16,8 +16,8 @@ class ErrorLogLoggerPluginTest extends AbstractPluginLoggerTest
 {
     public function test_should_not_log_without_message_type(): void
     {
-        $this->expectException(HandlerBuildException::class);
-        $this->expectExceptionMessage('Could not build handler for plugin: "Everon\Logger\Plugin\ErrorLog\ErrorLogLoggerPlugin". Error: Required value of "messageType" has not been set');
+        $this->expectException(ConfiguratorValidationException::class);
+        $this->expectExceptionMessage('Required value of "messageType" has not been set');
 
         $this->configurator
             ->getConfiguratorByPluginName(ErrorLogLoggerPlugin::class)

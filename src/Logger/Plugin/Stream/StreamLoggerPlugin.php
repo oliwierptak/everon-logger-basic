@@ -26,20 +26,21 @@ class StreamLoggerPlugin implements LoggerPluginInterface
 
     public function buildHandler(): HandlerInterface
     {
-        $this->validate();
-
         return new StreamHandler(
             $this->configurator->getStreamLocation(),
-            Logger::toMonologLevel($this->configurator->requireLogLevel()),
+            Logger::toMonologLevel($this->configurator->getLogLevel()),
             $this->configurator->shouldBubble(),
             $this->configurator->getFilePermission(),
             $this->configurator->useLocking()
         );
     }
 
-    protected function validate(): void
+    public function validate(): void
     {
         $this->configurator->requireStreamLocation();
         $this->configurator->requireLogLevel();
+        $this->configurator->requireShouldBubble();
+        $this->configurator->requireFilePermission();
+        $this->configurator->requireUseLocking();
     }
 }

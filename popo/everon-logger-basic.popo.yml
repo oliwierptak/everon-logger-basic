@@ -1,0 +1,38 @@
+Everon:
+  ErrorLogLoggerPluginConfigurator:
+    default:
+      pluginClass: \Everon\Logger\Plugin\ErrorLog\ErrorLogLoggerPlugin::class
+      messageType: \Monolog\Handler\ErrorLogHandler::OPERATING_SYSTEM
+      expandNewlines: false
+    property: [
+      {name: messageType, type: int, comment: "Says where the error should go."},
+      {name: expandNewlines, type: bool, comment: "If set to true, newlines in the message will be expanded to be take multiple log entries."},
+    ]}}
+
+  NulleeLoggerPluginConfigurator:
+    default:
+      pluginClass: \Everon\Logger\Plugin\Nullee\NulleeLoggerPlugin::class
+
+  StreamLoggerPluginConfigurator:
+    default:
+      pluginClass: \Everon\Logger\Plugin\Stream\StreamLoggerPlugin::class
+      useLocking: false
+      filePermission: 0644
+    property: [
+      {name: streamLocation, comment: "If a missing path can't be created, an UnexpectedValueException will be thrown on first write."},
+      {name: filePermission, type: int, comment: "Optional file permissions (default (0644) are only for owner read/write)."},
+      {name: useLocking, type: bool, comment: "Try to lock log file before doing any writes."},
+    ]}}
+
+  SyslogLoggerPluginConfigurator:
+    default:
+      pluginClass: \Everon\Logger\Plugin\Syslog\SyslogLoggerPlugin::class
+      facility: \LOG_LOCAL0
+      logopts: \LOG_PID
+    property: [
+      {name: ident},
+      {name: facility, type: int, comment: "Either one of the names of the keys in $this->facilities, or a LOG_* facility constant."},
+      {name: logopts, type: int, comment: "Option flags for the openlog() call, defaults to LOG_PID."},
+    ]}}
+
+

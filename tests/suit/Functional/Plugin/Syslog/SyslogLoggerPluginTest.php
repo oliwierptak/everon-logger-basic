@@ -5,6 +5,7 @@ declare(strict_types = 1);
 namespace EveronLoggerTests\Suit\Functional\Plugin\Syslog;
 
 use Everon\Logger\Configurator\Plugin\SyslogLoggerPluginConfigurator;
+use Everon\Logger\Exception\ConfiguratorValidationException;
 use Everon\Logger\Plugin\Syslog\SyslogLoggerPlugin;
 use EveronLoggerTests\Stub\Processor\MemoryUsageProcessorStub;
 use EveronLoggerTests\Suit\Configurator\TestLoggerConfigurator;
@@ -15,6 +16,19 @@ class SyslogLoggerPluginTest extends AbstractPluginLoggerTest
 {
     public function test_should_not_log_without_ident(): void
     {
+        $this->configurator->setValidateConfiguration(false);
+        $logger = $this->facade->buildLogger($this->configurator);
+
+        $logger->debug('foo bar');
+
+        $this->assertEmptyLogFile();
+    }
+    public function test_should_validate_builder_configuration(): void
+    {
+        $this->expectException(ConfiguratorValidationException::class);
+        $this->expectExceptionMessage('Required value of "ident" has not been set');
+
+        $this->configurator->setValidateConfiguration(true);
         $logger = $this->facade->buildLogger($this->configurator);
 
         $logger->debug('foo bar');

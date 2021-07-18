@@ -26,21 +26,21 @@ class SyslogLoggerPlugin implements LoggerPluginInterface
 
     public function buildHandler(): HandlerInterface
     {
-        $this->validate();
-
         return new SyslogHandler(
             $this->configurator->getIdent(),
             $this->configurator->getFacility(),
-            Logger::toMonologLevel($this->configurator->requireLogLevel()),
+            Logger::toMonologLevel($this->configurator->getLogLevel()),
             $this->configurator->shouldBubble(),
             $this->configurator->getLogopts(),
         );
     }
 
-    protected function validate(): void
+    public function validate(): void
     {
         $this->configurator->requireIdent();
         $this->configurator->requireFacility();
         $this->configurator->requireLogLevel();
+        $this->configurator->requireShouldBubble();
+        $this->configurator->requireLogopts();
     }
 }

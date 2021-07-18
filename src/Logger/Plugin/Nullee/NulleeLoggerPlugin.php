@@ -20,17 +20,15 @@ class NulleeLoggerPlugin implements LoggerPluginInterface
 
     public function canRun(): bool
     {
-        return $this->configurator->hasLogLevel();
+        return $this->configurator->hasLogLevel() && trim($this->configurator->getLogLevel()) !== '';
     }
 
     public function buildHandler(): HandlerInterface
     {
-        $this->validate();
-
-        return new NullHandler($this->configurator->requireLogLevel());
+        return new NullHandler($this->configurator->getLogLevel());
     }
 
-    protected function validate(): void
+    public function validate(): void
     {
         $this->configurator->requireLogLevel();
     }

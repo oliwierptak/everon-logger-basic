@@ -5,12 +5,12 @@
     "license": "MIT",
     "require": {
         "php": "^8",
-        "everon/logger": "^2"
+        "everon/logger": "dev-popo-5"
     },
     "require-dev": {
         "ext-json": "*",
         "phpunit/phpunit": "^9",
-        "popo/generator": "^4",
+        "popo/generator": "dev-yaml-support-5.0",
         "symfony/var-dumper": "^5"
     },
     "autoload": {
@@ -26,20 +26,20 @@
     },
     "scripts": {
         "popo": [
-            "vendor/bin/popo generate -c .popo"
+            "vendor/bin/popo generate -c vendor/everon/logger/popo/shared-plugin.config.yml -s ./popo/everon-logger-basic.popo.yml"
         ],
-        "tests": [
-            "vendor/bin/phpunit --testdox --no-coverage"
+        "test": [
+            "vendor/bin/phpunit --no-coverage"
         ],
-        "tests-ac": [
-            "vendor/bin/phpunit --testdox --no-coverage --group acceptance tests/suit/Acceptance/"
+        "test-ac": [
+            "vendor/bin/phpunit --no-coverage --group acceptance tests/suit/Acceptance/"
         ],
-        "tests-coverage": "vendor/bin/phpunit --testdox --group acceptance,default"
+        "test-coverage": "vendor/bin/phpunit --testdox --group acceptance,default"
     },
     "scripts-descriptions": {
         "popo": "Generate POPO files",
-        "tests": "Quick tests",
-        "tests-ac": "Quick AC tests",
-        "tests-coverage": "Tests with coverage"
+        "test": "Quick tests",
+        "test-ac": "Quick AC tests",
+        "test-coverage": "Tests with coverage"
     }
 }

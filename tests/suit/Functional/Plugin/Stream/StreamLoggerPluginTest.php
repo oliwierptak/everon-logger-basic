@@ -15,6 +15,7 @@ class StreamLoggerPluginTest extends AbstractPluginLoggerTest
 {
     public function test_should_not_log_without_logFile(): void
     {
+        $this->configurator->setValidateConfiguration(false);
         $logger = $this->facade->buildLogger($this->configurator);
 
         $logger->debug('foo bar');
@@ -25,6 +26,7 @@ class StreamLoggerPluginTest extends AbstractPluginLoggerTest
     public function test_should_not_log_when_level_too_low(): void
     {
         $this->configurator
+            ->setValidateConfiguration(false)
             ->getConfiguratorByPluginName(StreamLoggerPlugin::class)
             ->setLogLevel('info')
             ->setStreamLocation($this->logFilename);

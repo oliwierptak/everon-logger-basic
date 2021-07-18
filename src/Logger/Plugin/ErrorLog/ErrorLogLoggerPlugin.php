@@ -6,6 +6,7 @@ namespace Everon\Logger\Plugin\ErrorLog;
 
 use Everon\Logger\Configurator\Plugin\ErrorLogLoggerPluginConfigurator;
 use Everon\Logger\Contract\Plugin\LoggerPluginInterface;
+use JetBrains\PhpStorm\Pure;
 use Monolog\Handler\ErrorLogHandler;
 use Monolog\Handler\HandlerInterface;
 use Monolog\Logger;
@@ -19,26 +20,26 @@ class ErrorLogLoggerPlugin implements LoggerPluginInterface
         $this->configurator = $configurator;
     }
 
-    public function canRun(): bool
+    #[Pure] public function canRun(): bool
     {
         return $this->configurator->hasMessageType();
     }
 
     public function buildHandler(): HandlerInterface
     {
-        $this->validate();
-
         return new ErrorLogHandler(
             $this->configurator->getMessageType(),
-            Logger::toMonologLevel($this->configurator->requireLogLevel()),
+            Logger::toMonologLevel($this->configurator->getLogLevel()),
             $this->configurator->shouldBubble(),
             $this->configurator->expandNewlines()
         );
     }
 
-    protected function validate(): void
+    public function validate(): void
     {
         $this->configurator->requireMessageType();
         $this->configurator->requireLogLevel();
+        $this->configurator->requireShouldBubble();
+        $this->configurator->requireExpandNewlines();
     }
 }
