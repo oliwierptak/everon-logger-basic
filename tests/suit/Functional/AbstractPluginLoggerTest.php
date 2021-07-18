@@ -31,8 +31,12 @@ abstract class AbstractPluginLoggerTest extends TestCase
 
     protected function assertEmptyLogFile(): void
     {
-        $syslogData = shell_exec('tail --lines=1 ' . $this->logFilename);
-        $this->assertNull($syslogData);
+        if (file_exists($this->logFilename)) {
+            $syslogData = shell_exec('tail --lines=1 ' . $this->logFilename);
+            $this->assertNull($syslogData);
+        } else {
+            $this->assertFileDoesNotExist($this->logFilename);
+        }
     }
 
     protected function assertLogFile(TestLoggerConfigurator $configurator): void

@@ -1,4 +1,4 @@
-Everon:
+EveronLogger:
   ErrorLogLoggerPluginConfigurator:
     default:
       pluginClass: \Everon\Logger\Plugin\ErrorLog\ErrorLogLoggerPlugin::class
