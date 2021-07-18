@@ -21,15 +21,17 @@ class SyslogLoggerPlugin implements LoggerPluginInterface
 
     public function canRun(): bool
     {
-        return $this->configurator->hasIdent();
+        return $this->configurator->hasIdent() &&
+            $this->configurator->hasFacility() &&
+            $this->configurator->hasLogLevel();
     }
 
     public function buildHandler(): HandlerInterface
     {
         return new SyslogHandler(
-            $this->configurator->getIdent(),
-            $this->configurator->getFacility(),
-            Logger::toMonologLevel($this->configurator->getLogLevel()),
+            $this->configurator->requireIdent(),
+            $this->configurator->requireFacility(),
+            Logger::toMonologLevel($this->configurator->requireLogLevel()),
             $this->configurator->shouldBubble(),
             $this->configurator->getLogopts(),
         );

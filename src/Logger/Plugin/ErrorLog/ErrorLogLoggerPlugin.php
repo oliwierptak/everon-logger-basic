@@ -22,14 +22,14 @@ class ErrorLogLoggerPlugin implements LoggerPluginInterface
 
     #[Pure] public function canRun(): bool
     {
-        return $this->configurator->hasMessageType();
+        return $this->configurator->hasMessageType() && $this->configurator->hasLogLevel();
     }
 
     public function buildHandler(): HandlerInterface
     {
         return new ErrorLogHandler(
-            $this->configurator->getMessageType(),
-            Logger::toMonologLevel($this->configurator->getLogLevel()),
+            $this->configurator->requireMessageType(),
+            Logger::toMonologLevel($this->configurator->requireLogLevel()),
             $this->configurator->shouldBubble(),
             $this->configurator->expandNewlines()
         );

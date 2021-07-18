@@ -21,14 +21,14 @@ class StreamLoggerPlugin implements LoggerPluginInterface
 
     public function canRun(): bool
     {
-        return $this->configurator->hasStreamLocation();
+        return $this->configurator->hasStreamLocation() && $this->configurator->hasLogLevel();
     }
 
     public function buildHandler(): HandlerInterface
     {
         return new StreamHandler(
-            $this->configurator->getStreamLocation(),
-            Logger::toMonologLevel($this->configurator->getLogLevel()),
+            $this->configurator->requireStreamLocation(),
+            Logger::toMonologLevel($this->configurator->requireLogLevel()),
             $this->configurator->shouldBubble(),
             $this->configurator->getFilePermission(),
             $this->configurator->useLocking()
