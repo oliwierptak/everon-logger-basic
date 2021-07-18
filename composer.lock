@@ -12,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/oliwierptak/everon-logger.git",
-                "reference": "6257e51ceae12cd94134be69293b28499c92407f"
+                "reference": "60e9bc3e1cdd2c12a31cbd513b7377dc03e47bae"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/oliwierptak/everon-logger/zipball/6257e51ceae12cd94134be69293b28499c92407f",
-                "reference": "6257e51ceae12cd94134be69293b28499c92407f",
+                "url": "https://api.github.com/repos/oliwierptak/everon-logger/zipball/60e9bc3e1cdd2c12a31cbd513b7377dc03e47bae",
+                "reference": "60e9bc3e1cdd2c12a31cbd513b7377dc03e47bae",
                 "shasum": ""
             },
             "require": {
@@ -50,7 +50,7 @@
                 "issues": "https://github.com/oliwierptak/everon-logger/issues",
                 "source": "https://github.com/oliwierptak/everon-logger/tree/popo-5"
             },
-            "time": "2021-07-18T13:15:24+00:00"
+            "time": "2021-07-18T13:20:47+00:00"
         },
         {
             "name": "monolog/monolog",

@@ -16,6 +16,8 @@ class ErrorLogLoggerPluginTest extends AbstractPluginLoggerTest
 {
     public function test_should_not_log_without_message_type(): void
     {
+        $this->configurator->setValidateConfiguration(true);
+
         $this->expectException(ConfiguratorValidationException::class);
         $this->expectExceptionMessage('Required value of "messageType" has not been set');
 
