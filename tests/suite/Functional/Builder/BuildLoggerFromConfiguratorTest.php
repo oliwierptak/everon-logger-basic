@@ -2,14 +2,14 @@
 
 declare(strict_types = 1);
 
-namespace EveronLoggerTests\Suit\Functional\Builder;
+namespace EveronLoggerTests\Suite\Functional\Builder;
 
 use Everon\Logger\Configurator\Plugin\StreamLoggerPluginConfigurator;
 use Everon\Logger\Exception\ConfiguratorValidationException;
 use Everon\Logger\Plugin\Stream\StreamLoggerPlugin;
 use EveronLoggerTests\Stub\Processor\MemoryUsageProcessorStub;
-use EveronLoggerTests\Suit\Configurator\TestLoggerConfigurator;
-use EveronLoggerTests\Suit\Functional\AbstractPluginLoggerTest;
+use EveronLoggerTests\Suite\Configurator\TestLoggerConfigurator;
+use EveronLoggerTests\Suite\Functional\AbstractPluginLoggerTest;
 use Psr\Log\LoggerInterface;
 
 class BuildLoggerFromConfiguratorTest extends AbstractPluginLoggerTest

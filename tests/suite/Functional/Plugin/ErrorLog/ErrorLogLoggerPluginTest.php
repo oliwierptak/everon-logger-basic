@@ -2,14 +2,14 @@
 
 declare(strict_types = 1);
 
-namespace EveronLoggerTests\Suit\Functional\Plugin\ErrorLog;
+namespace EveronLoggerTests\Suite\Functional\Plugin\ErrorLog;
 
 use Everon\Logger\Configurator\Plugin\ErrorLogLoggerPluginConfigurator;
 use Everon\Logger\Exception\ConfiguratorValidationException;
 use Everon\Logger\Plugin\ErrorLog\ErrorLogLoggerPlugin;
 use EveronLoggerTests\Stub\Processor\MemoryUsageProcessorStub;
-use EveronLoggerTests\Suit\Configurator\TestLoggerConfigurator;
-use EveronLoggerTests\Suit\Functional\AbstractPluginLoggerTest;
+use EveronLoggerTests\Suite\Configurator\TestLoggerConfigurator;
+use EveronLoggerTests\Suite\Functional\AbstractPluginLoggerTest;
 use Monolog\Handler\ErrorLogHandler;
 
 class ErrorLogLoggerPluginTest extends AbstractPluginLoggerTest

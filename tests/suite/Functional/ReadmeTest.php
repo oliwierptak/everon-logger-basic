@@ -2,7 +2,7 @@
 
 declare(strict_types = 1);
 
-namespace EveronLoggerTests\Suit\Functional;
+namespace EveronLoggerTests\Suite\Functional;
 
 use Everon\Logger\Configurator\Plugin\LoggerConfigurator;
 use Everon\Logger\Configurator\Plugin\StreamLoggerPluginConfigurator;

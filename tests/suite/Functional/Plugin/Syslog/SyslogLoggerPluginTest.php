@@ -2,14 +2,14 @@
 
 declare(strict_types = 1);
 
-namespace EveronLoggerTests\Suit\Functional\Plugin\Syslog;
+namespace EveronLoggerTests\Suite\Functional\Plugin\Syslog;
 
 use Everon\Logger\Configurator\Plugin\SyslogLoggerPluginConfigurator;
 use Everon\Logger\Exception\ConfiguratorValidationException;
 use Everon\Logger\Plugin\Syslog\SyslogLoggerPlugin;
 use EveronLoggerTests\Stub\Processor\MemoryUsageProcessorStub;
-use EveronLoggerTests\Suit\Configurator\TestLoggerConfigurator;
-use EveronLoggerTests\Suit\Functional\AbstractPluginLoggerTest;
+use EveronLoggerTests\Suite\Configurator\TestLoggerConfigurator;
+use EveronLoggerTests\Suite\Functional\AbstractPluginLoggerTest;
 use function shell_exec;
 
 class SyslogLoggerPluginTest extends AbstractPluginLoggerTest

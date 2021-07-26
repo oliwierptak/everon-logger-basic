@@ -2,11 +2,11 @@
 
 declare(strict_types = 1);
 
-namespace EveronLoggerTests\Suit\Functional\Plugin\Nullee;
+namespace EveronLoggerTests\Suite\Functional\Plugin\Nullee;
 
 use Everon\Logger\Configurator\Plugin\NulleeLoggerPluginConfigurator;
 use Everon\Logger\Plugin\Nullee\NulleeLoggerPlugin;
-use EveronLoggerTests\Suit\Functional\AbstractPluginLoggerTest;
+use EveronLoggerTests\Suite\Functional\AbstractPluginLoggerTest;
 
 class NulleeLoggerPluginTest extends AbstractPluginLoggerTest
 {

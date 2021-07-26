@@ -20,7 +20,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "EveronLoggerTests\\Suit\\": "tests/suit/",
+            "EveronLoggerTests\\Suite\\": "tests/suite/",
             "EveronLoggerTests\\Stub\\": "tests/stub/"
         }
     },
@@ -29,9 +29,11 @@
             "vendor/bin/popo generate -c vendor/everon/logger/popo/shared-plugin.config.yml -s ./popo/everon-logger-basic.popo.yml"
         ],
         "test": [
+            "@popo",
             "vendor/bin/phpunit --no-coverage"
         ],
         "test-ac": [
+            "@popo",
             "vendor/bin/phpunit --no-coverage --group acceptance tests/suit/Acceptance/"
         ],
         "test-coverage": "vendor/bin/phpunit --testdox --group acceptance,default"
