@@ -37,6 +37,7 @@ Sends messages to PHP error_log() handler.
     ```php
     use Everon\Logger\Configurator\Plugin\ErrorLogLoggerPluginConfigurator;
     use Everon\Logger\Configurator\Plugin\LoggerConfigurator;
+    use Everon\Logger\EveronLoggerFacade;
   
     $errorLogPluginConfigurator = (new ErrorLogLoggerPluginConfigurator)
         ->setLogLevel('debug')
@@ -77,6 +78,7 @@ Pretend to send messages
     ```php
     use Everon\Logger\Configurator\Plugin\LoggerConfigurator;
     use Everon\Logger\Configurator\Plugin\NulleeLoggerPluginConfigurator;
+    use Everon\Logger\EveronLoggerFacade;
   
     $nulleePluginConfigurator = (new NulleeLoggerPluginConfigurator)
         ->setLogLevel('debug');
@@ -118,6 +120,7 @@ Sends messages to any PHP stream handler.
     ```php
     use Everon\Logger\Configurator\Plugin\LoggerConfigurator;
     use Everon\Logger\Configurator\Plugin\StreamLoggerPluginConfigurator;
+    use Everon\Logger\EveronLoggerFacade;
   
     $streamPluginConfigurator = (new StreamLoggerPluginConfigurator)
         ->setLogLevel('debug')
@@ -161,6 +164,7 @@ Sends messages to syslog service.
     ```php
     use Everon\Logger\Configurator\Plugin\LoggerConfigurator;
     use Everon\Logger\Configurator\Plugin\SyslogLoggerPluginConfigurator;
+    use Everon\Logger\EveronLoggerFacade;
   
     $syslogPluginConfigurator = (new SyslogLoggerPluginConfigurator)
         ->setLogLevel('warning')
