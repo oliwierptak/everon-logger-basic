@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "everon/logger",
-            "version": "4.0.0",
+            "version": "4.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/oliwierptak/everon-logger.git",
-                "reference": "5903757162fc4507c88caff7011107e8cce35e3d"
+                "reference": "200adbfb5eb20ff91926e9fcd019fdd419af05b2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/oliwierptak/everon-logger/zipball/5903757162fc4507c88caff7011107e8cce35e3d",
-                "reference": "5903757162fc4507c88caff7011107e8cce35e3d",
+                "url": "https://api.github.com/repos/oliwierptak/everon-logger/zipball/200adbfb5eb20ff91926e9fcd019fdd419af05b2",
+                "reference": "200adbfb5eb20ff91926e9fcd019fdd419af05b2",
                 "shasum": ""
             },
             "require": {
@@ -48,9 +48,9 @@
             "description": "PSR-3 compliant logger with pluggable architecture and unified, shareable configuration based on Monolog",
             "support": {
                 "issues": "https://github.com/oliwierptak/everon-logger/issues",
-                "source": "https://github.com/oliwierptak/everon-logger/tree/4.0.0"
+                "source": "https://github.com/oliwierptak/everon-logger/tree/4.0.1"
             },
-            "time": "2021-07-26T19:29:24+00:00"
+            "time": "2021-07-29T20:49:14+00:00"
         },
         {
             "name": "monolog/monolog",
