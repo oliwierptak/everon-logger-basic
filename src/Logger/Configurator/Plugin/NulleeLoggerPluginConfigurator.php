@@ -58,10 +58,7 @@ class NulleeLoggerPluginConfigurator implements \Everon\Logger\Contract\Configur
      */
     public function requireLogLevel(): string
     {
-        if (static::METADATA['logLevel']['type'] === 'popo' && $this->logLevel === null) {
-            $popo = static::METADATA['logLevel']['default'];
-            $this->logLevel = new $popo;
-        }
+        $this->setupPopoProperty('logLevel');
 
         if ($this->logLevel === null) {
             throw new UnexpectedValueException('Required value of "logLevel" has not been set');
@@ -71,7 +68,7 @@ class NulleeLoggerPluginConfigurator implements \Everon\Logger\Contract\Configur
 
     public function hasLogLevel(): bool
     {
-        return $this->logLevel !== null || ($this->logLevel !== null && array_key_exists('logLevel', $this->updateMap));
+        return $this->logLevel !== null;
     }
 
     public function setPluginClass(?string $pluginClass): self
@@ -86,10 +83,7 @@ class NulleeLoggerPluginConfigurator implements \Everon\Logger\Contract\Configur
 
     public function requirePluginClass(): string
     {
-        if (static::METADATA['pluginClass']['type'] === 'popo' && $this->pluginClass === null) {
-            $popo = static::METADATA['pluginClass']['default'];
-            $this->pluginClass = new $popo;
-        }
+        $this->setupPopoProperty('pluginClass');
 
         if ($this->pluginClass === null) {
             throw new UnexpectedValueException('Required value of "pluginClass" has not been set');
@@ -99,7 +93,7 @@ class NulleeLoggerPluginConfigurator implements \Everon\Logger\Contract\Configur
 
     public function hasPluginClass(): bool
     {
-        return $this->pluginClass !== null || ($this->pluginClass !== null && array_key_exists('pluginClass', $this->updateMap));
+        return $this->pluginClass !== null;
     }
 
     /**
@@ -123,10 +117,7 @@ class NulleeLoggerPluginConfigurator implements \Everon\Logger\Contract\Configur
      */
     public function requirePluginFactoryClass(): string
     {
-        if (static::METADATA['pluginFactoryClass']['type'] === 'popo' && $this->pluginFactoryClass === null) {
-            $popo = static::METADATA['pluginFactoryClass']['default'];
-            $this->pluginFactoryClass = new $popo;
-        }
+        $this->setupPopoProperty('pluginFactoryClass');
 
         if ($this->pluginFactoryClass === null) {
             throw new UnexpectedValueException('Required value of "pluginFactoryClass" has not been set');
@@ -136,7 +127,7 @@ class NulleeLoggerPluginConfigurator implements \Everon\Logger\Contract\Configur
 
     public function hasPluginFactoryClass(): bool
     {
-        return $this->pluginFactoryClass !== null || ($this->pluginFactoryClass !== null && array_key_exists('pluginFactoryClass', $this->updateMap));
+        return $this->pluginFactoryClass !== null;
     }
 
     /**
@@ -160,10 +151,7 @@ class NulleeLoggerPluginConfigurator implements \Everon\Logger\Contract\Configur
      */
     public function requireShouldBubble(): bool
     {
-        if (static::METADATA['shouldBubble']['type'] === 'popo' && $this->shouldBubble === null) {
-            $popo = static::METADATA['shouldBubble']['default'];
-            $this->shouldBubble = new $popo;
-        }
+        $this->setupPopoProperty('shouldBubble');
 
         if ($this->shouldBubble === null) {
             throw new UnexpectedValueException('Required value of "shouldBubble" has not been set');
@@ -173,7 +161,7 @@ class NulleeLoggerPluginConfigurator implements \Everon\Logger\Contract\Configur
 
     public function hasShouldBubble(): bool
     {
-        return $this->shouldBubble !== null || ($this->shouldBubble !== null && array_key_exists('shouldBubble', $this->updateMap));
+        return $this->shouldBubble !== null;
     }
 
     #[\JetBrains\PhpStorm\ArrayShape(self::SHAPE_PROPERTIES)]
@@ -227,6 +215,11 @@ class NulleeLoggerPluginConfigurator implements \Everon\Logger\Contract\Configur
         return empty($this->updateMap) === true;
     }
 
+    public function listModifiedProperties(): array
+    {
+        return array_keys($this->updateMap);
+    }
+
     public function requireAll(): self
     {
         $errors = [];
@@ -263,5 +256,13 @@ class NulleeLoggerPluginConfigurator implements \Everon\Logger\Contract\Configur
         }
 
         return $this;
+    }
+
+    protected function setupPopoProperty($propertyName): void
+    {
+        if (static::METADATA[$propertyName]['type'] === 'popo' && $this->$propertyName === null) {
+            $popo = static::METADATA[$propertyName]['default'];
+            $this->$propertyName = new $popo;
+        }
     }
 }

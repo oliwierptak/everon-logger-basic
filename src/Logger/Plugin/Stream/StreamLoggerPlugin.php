@@ -13,11 +13,8 @@ use Monolog\Logger;
 
 class StreamLoggerPlugin implements LoggerPluginInterface
 {
-    protected StreamLoggerPluginConfigurator $configurator;
-
-    public function __construct(StreamLoggerPluginConfigurator $configurator)
+    public function __construct(protected StreamLoggerPluginConfigurator $configurator)
     {
-        $this->configurator = $configurator;
     }
 
     #[Pure] public function canRun(): bool

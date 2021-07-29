@@ -71,10 +71,7 @@ class SyslogLoggerPluginConfigurator implements \Everon\Logger\Contract\Configur
      */
     public function requireFacility(): int
     {
-        if (static::METADATA['facility']['type'] === 'popo' && $this->facility === null) {
-            $popo = static::METADATA['facility']['default'];
-            $this->facility = new $popo;
-        }
+        $this->setupPopoProperty('facility');
 
         if ($this->facility === null) {
             throw new UnexpectedValueException('Required value of "facility" has not been set');
@@ -84,7 +81,7 @@ class SyslogLoggerPluginConfigurator implements \Everon\Logger\Contract\Configur
 
     public function hasFacility(): bool
     {
-        return $this->facility !== null || ($this->facility !== null && array_key_exists('facility', $this->updateMap));
+        return $this->facility !== null;
     }
 
     public function setIdent(?string $ident): self
@@ -99,10 +96,7 @@ class SyslogLoggerPluginConfigurator implements \Everon\Logger\Contract\Configur
 
     public function requireIdent(): string
     {
-        if (static::METADATA['ident']['type'] === 'popo' && $this->ident === null) {
-            $popo = static::METADATA['ident']['default'];
-            $this->ident = new $popo;
-        }
+        $this->setupPopoProperty('ident');
 
         if ($this->ident === null) {
             throw new UnexpectedValueException('Required value of "ident" has not been set');
@@ -112,7 +106,7 @@ class SyslogLoggerPluginConfigurator implements \Everon\Logger\Contract\Configur
 
     public function hasIdent(): bool
     {
-        return $this->ident !== null || ($this->ident !== null && array_key_exists('ident', $this->updateMap));
+        return $this->ident !== null;
     }
 
     /**
@@ -136,10 +130,7 @@ class SyslogLoggerPluginConfigurator implements \Everon\Logger\Contract\Configur
      */
     public function requireLogLevel(): string
     {
-        if (static::METADATA['logLevel']['type'] === 'popo' && $this->logLevel === null) {
-            $popo = static::METADATA['logLevel']['default'];
-            $this->logLevel = new $popo;
-        }
+        $this->setupPopoProperty('logLevel');
 
         if ($this->logLevel === null) {
             throw new UnexpectedValueException('Required value of "logLevel" has not been set');
@@ -149,7 +140,7 @@ class SyslogLoggerPluginConfigurator implements \Everon\Logger\Contract\Configur
 
     public function hasLogLevel(): bool
     {
-        return $this->logLevel !== null || ($this->logLevel !== null && array_key_exists('logLevel', $this->updateMap));
+        return $this->logLevel !== null;
     }
 
     /**
@@ -173,10 +164,7 @@ class SyslogLoggerPluginConfigurator implements \Everon\Logger\Contract\Configur
      */
     public function requireLogopts(): int
     {
-        if (static::METADATA['logopts']['type'] === 'popo' && $this->logopts === null) {
-            $popo = static::METADATA['logopts']['default'];
-            $this->logopts = new $popo;
-        }
+        $this->setupPopoProperty('logopts');
 
         if ($this->logopts === null) {
             throw new UnexpectedValueException('Required value of "logopts" has not been set');
@@ -186,7 +174,7 @@ class SyslogLoggerPluginConfigurator implements \Everon\Logger\Contract\Configur
 
     public function hasLogopts(): bool
     {
-        return $this->logopts !== null || ($this->logopts !== null && array_key_exists('logopts', $this->updateMap));
+        return $this->logopts !== null;
     }
 
     public function setPluginClass(?string $pluginClass): self
@@ -201,10 +189,7 @@ class SyslogLoggerPluginConfigurator implements \Everon\Logger\Contract\Configur
 
     public function requirePluginClass(): string
     {
-        if (static::METADATA['pluginClass']['type'] === 'popo' && $this->pluginClass === null) {
-            $popo = static::METADATA['pluginClass']['default'];
-            $this->pluginClass = new $popo;
-        }
+        $this->setupPopoProperty('pluginClass');
 
         if ($this->pluginClass === null) {
             throw new UnexpectedValueException('Required value of "pluginClass" has not been set');
@@ -214,7 +199,7 @@ class SyslogLoggerPluginConfigurator implements \Everon\Logger\Contract\Configur
 
     public function hasPluginClass(): bool
     {
-        return $this->pluginClass !== null || ($this->pluginClass !== null && array_key_exists('pluginClass', $this->updateMap));
+        return $this->pluginClass !== null;
     }
 
     /**
@@ -238,10 +223,7 @@ class SyslogLoggerPluginConfigurator implements \Everon\Logger\Contract\Configur
      */
     public function requirePluginFactoryClass(): string
     {
-        if (static::METADATA['pluginFactoryClass']['type'] === 'popo' && $this->pluginFactoryClass === null) {
-            $popo = static::METADATA['pluginFactoryClass']['default'];
-            $this->pluginFactoryClass = new $popo;
-        }
+        $this->setupPopoProperty('pluginFactoryClass');
 
         if ($this->pluginFactoryClass === null) {
             throw new UnexpectedValueException('Required value of "pluginFactoryClass" has not been set');
@@ -251,7 +233,7 @@ class SyslogLoggerPluginConfigurator implements \Everon\Logger\Contract\Configur
 
     public function hasPluginFactoryClass(): bool
     {
-        return $this->pluginFactoryClass !== null || ($this->pluginFactoryClass !== null && array_key_exists('pluginFactoryClass', $this->updateMap));
+        return $this->pluginFactoryClass !== null;
     }
 
     /**
@@ -275,10 +257,7 @@ class SyslogLoggerPluginConfigurator implements \Everon\Logger\Contract\Configur
      */
     public function requireShouldBubble(): bool
     {
-        if (static::METADATA['shouldBubble']['type'] === 'popo' && $this->shouldBubble === null) {
-            $popo = static::METADATA['shouldBubble']['default'];
-            $this->shouldBubble = new $popo;
-        }
+        $this->setupPopoProperty('shouldBubble');
 
         if ($this->shouldBubble === null) {
             throw new UnexpectedValueException('Required value of "shouldBubble" has not been set');
@@ -288,7 +267,7 @@ class SyslogLoggerPluginConfigurator implements \Everon\Logger\Contract\Configur
 
     public function hasShouldBubble(): bool
     {
-        return $this->shouldBubble !== null || ($this->shouldBubble !== null && array_key_exists('shouldBubble', $this->updateMap));
+        return $this->shouldBubble !== null;
     }
 
     #[\JetBrains\PhpStorm\ArrayShape(self::SHAPE_PROPERTIES)]
@@ -345,6 +324,11 @@ class SyslogLoggerPluginConfigurator implements \Everon\Logger\Contract\Configur
         return empty($this->updateMap) === true;
     }
 
+    public function listModifiedProperties(): array
+    {
+        return array_keys($this->updateMap);
+    }
+
     public function requireAll(): self
     {
         $errors = [];
@@ -399,5 +383,13 @@ class SyslogLoggerPluginConfigurator implements \Everon\Logger\Contract\Configur
         }
 
         return $this;
+    }
+
+    protected function setupPopoProperty($propertyName): void
+    {
+        if (static::METADATA[$propertyName]['type'] === 'popo' && $this->$propertyName === null) {
+            $popo = static::METADATA[$propertyName]['default'];
+            $this->$propertyName = new $popo;
+        }
     }
 }

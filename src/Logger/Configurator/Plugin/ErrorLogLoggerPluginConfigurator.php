@@ -68,10 +68,7 @@ class ErrorLogLoggerPluginConfigurator implements \Everon\Logger\Contract\Config
      */
     public function requireExpandNewlines(): bool
     {
-        if (static::METADATA['expandNewlines']['type'] === 'popo' && $this->expandNewlines === null) {
-            $popo = static::METADATA['expandNewlines']['default'];
-            $this->expandNewlines = new $popo;
-        }
+        $this->setupPopoProperty('expandNewlines');
 
         if ($this->expandNewlines === null) {
             throw new UnexpectedValueException('Required value of "expandNewlines" has not been set');
@@ -81,7 +78,7 @@ class ErrorLogLoggerPluginConfigurator implements \Everon\Logger\Contract\Config
 
     public function hasExpandNewlines(): bool
     {
-        return $this->expandNewlines !== null || ($this->expandNewlines !== null && array_key_exists('expandNewlines', $this->updateMap));
+        return $this->expandNewlines !== null;
     }
 
     /**
@@ -105,10 +102,7 @@ class ErrorLogLoggerPluginConfigurator implements \Everon\Logger\Contract\Config
      */
     public function requireLogLevel(): string
     {
-        if (static::METADATA['logLevel']['type'] === 'popo' && $this->logLevel === null) {
-            $popo = static::METADATA['logLevel']['default'];
-            $this->logLevel = new $popo;
-        }
+        $this->setupPopoProperty('logLevel');
 
         if ($this->logLevel === null) {
             throw new UnexpectedValueException('Required value of "logLevel" has not been set');
@@ -118,7 +112,7 @@ class ErrorLogLoggerPluginConfigurator implements \Everon\Logger\Contract\Config
 
     public function hasLogLevel(): bool
     {
-        return $this->logLevel !== null || ($this->logLevel !== null && array_key_exists('logLevel', $this->updateMap));
+        return $this->logLevel !== null;
     }
 
     /**
@@ -142,10 +136,7 @@ class ErrorLogLoggerPluginConfigurator implements \Everon\Logger\Contract\Config
      */
     public function requireMessageType(): int
     {
-        if (static::METADATA['messageType']['type'] === 'popo' && $this->messageType === null) {
-            $popo = static::METADATA['messageType']['default'];
-            $this->messageType = new $popo;
-        }
+        $this->setupPopoProperty('messageType');
 
         if ($this->messageType === null) {
             throw new UnexpectedValueException('Required value of "messageType" has not been set');
@@ -155,7 +146,7 @@ class ErrorLogLoggerPluginConfigurator implements \Everon\Logger\Contract\Config
 
     public function hasMessageType(): bool
     {
-        return $this->messageType !== null || ($this->messageType !== null && array_key_exists('messageType', $this->updateMap));
+        return $this->messageType !== null;
     }
 
     public function setPluginClass(?string $pluginClass): self
@@ -170,10 +161,7 @@ class ErrorLogLoggerPluginConfigurator implements \Everon\Logger\Contract\Config
 
     public function requirePluginClass(): string
     {
-        if (static::METADATA['pluginClass']['type'] === 'popo' && $this->pluginClass === null) {
-            $popo = static::METADATA['pluginClass']['default'];
-            $this->pluginClass = new $popo;
-        }
+        $this->setupPopoProperty('pluginClass');
 
         if ($this->pluginClass === null) {
             throw new UnexpectedValueException('Required value of "pluginClass" has not been set');
@@ -183,7 +171,7 @@ class ErrorLogLoggerPluginConfigurator implements \Everon\Logger\Contract\Config
 
     public function hasPluginClass(): bool
     {
-        return $this->pluginClass !== null || ($this->pluginClass !== null && array_key_exists('pluginClass', $this->updateMap));
+        return $this->pluginClass !== null;
     }
 
     /**
@@ -207,10 +195,7 @@ class ErrorLogLoggerPluginConfigurator implements \Everon\Logger\Contract\Config
      */
     public function requirePluginFactoryClass(): string
     {
-        if (static::METADATA['pluginFactoryClass']['type'] === 'popo' && $this->pluginFactoryClass === null) {
-            $popo = static::METADATA['pluginFactoryClass']['default'];
-            $this->pluginFactoryClass = new $popo;
-        }
+        $this->setupPopoProperty('pluginFactoryClass');
 
         if ($this->pluginFactoryClass === null) {
             throw new UnexpectedValueException('Required value of "pluginFactoryClass" has not been set');
@@ -220,7 +205,7 @@ class ErrorLogLoggerPluginConfigurator implements \Everon\Logger\Contract\Config
 
     public function hasPluginFactoryClass(): bool
     {
-        return $this->pluginFactoryClass !== null || ($this->pluginFactoryClass !== null && array_key_exists('pluginFactoryClass', $this->updateMap));
+        return $this->pluginFactoryClass !== null;
     }
 
     /**
@@ -244,10 +229,7 @@ class ErrorLogLoggerPluginConfigurator implements \Everon\Logger\Contract\Config
      */
     public function requireShouldBubble(): bool
     {
-        if (static::METADATA['shouldBubble']['type'] === 'popo' && $this->shouldBubble === null) {
-            $popo = static::METADATA['shouldBubble']['default'];
-            $this->shouldBubble = new $popo;
-        }
+        $this->setupPopoProperty('shouldBubble');
 
         if ($this->shouldBubble === null) {
             throw new UnexpectedValueException('Required value of "shouldBubble" has not been set');
@@ -257,7 +239,7 @@ class ErrorLogLoggerPluginConfigurator implements \Everon\Logger\Contract\Config
 
     public function hasShouldBubble(): bool
     {
-        return $this->shouldBubble !== null || ($this->shouldBubble !== null && array_key_exists('shouldBubble', $this->updateMap));
+        return $this->shouldBubble !== null;
     }
 
     #[\JetBrains\PhpStorm\ArrayShape(self::SHAPE_PROPERTIES)]
@@ -313,6 +295,11 @@ class ErrorLogLoggerPluginConfigurator implements \Everon\Logger\Contract\Config
         return empty($this->updateMap) === true;
     }
 
+    public function listModifiedProperties(): array
+    {
+        return array_keys($this->updateMap);
+    }
+
     public function requireAll(): self
     {
         $errors = [];
@@ -361,5 +348,13 @@ class ErrorLogLoggerPluginConfigurator implements \Everon\Logger\Contract\Config
         }
 
         return $this;
+    }
+
+    protected function setupPopoProperty($propertyName): void
+    {
+        if (static::METADATA[$propertyName]['type'] === 'popo' && $this->$propertyName === null) {
+            $popo = static::METADATA[$propertyName]['default'];
+            $this->$propertyName = new $popo;
+        }
     }
 }

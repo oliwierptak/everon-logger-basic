@@ -13,11 +13,8 @@ use Monolog\Logger;
 
 class ErrorLogLoggerPlugin implements LoggerPluginInterface
 {
-    protected ErrorLogLoggerPluginConfigurator $configurator;
-
-    public function __construct(ErrorLogLoggerPluginConfigurator $configurator)
+    public function __construct(protected ErrorLogLoggerPluginConfigurator $configurator)
     {
-        $this->configurator = $configurator;
     }
 
     #[Pure] public function canRun(): bool

@@ -73,10 +73,7 @@ class StreamLoggerPluginConfigurator implements \Everon\Logger\Contract\Configur
      */
     public function requireFilePermission(): int
     {
-        if (static::METADATA['filePermission']['type'] === 'popo' && $this->filePermission === null) {
-            $popo = static::METADATA['filePermission']['default'];
-            $this->filePermission = new $popo;
-        }
+        $this->setupPopoProperty('filePermission');
 
         if ($this->filePermission === null) {
             throw new UnexpectedValueException('Required value of "filePermission" has not been set');
@@ -86,7 +83,7 @@ class StreamLoggerPluginConfigurator implements \Everon\Logger\Contract\Configur
 
     public function hasFilePermission(): bool
     {
-        return $this->filePermission !== null || ($this->filePermission !== null && array_key_exists('filePermission', $this->updateMap));
+        return $this->filePermission !== null;
     }
 
     /**
@@ -110,10 +107,7 @@ class StreamLoggerPluginConfigurator implements \Everon\Logger\Contract\Configur
      */
     public function requireLogLevel(): string
     {
-        if (static::METADATA['logLevel']['type'] === 'popo' && $this->logLevel === null) {
-            $popo = static::METADATA['logLevel']['default'];
-            $this->logLevel = new $popo;
-        }
+        $this->setupPopoProperty('logLevel');
 
         if ($this->logLevel === null) {
             throw new UnexpectedValueException('Required value of "logLevel" has not been set');
@@ -123,7 +117,7 @@ class StreamLoggerPluginConfigurator implements \Everon\Logger\Contract\Configur
 
     public function hasLogLevel(): bool
     {
-        return $this->logLevel !== null || ($this->logLevel !== null && array_key_exists('logLevel', $this->updateMap));
+        return $this->logLevel !== null;
     }
 
     public function setPluginClass(?string $pluginClass): self
@@ -138,10 +132,7 @@ class StreamLoggerPluginConfigurator implements \Everon\Logger\Contract\Configur
 
     public function requirePluginClass(): string
     {
-        if (static::METADATA['pluginClass']['type'] === 'popo' && $this->pluginClass === null) {
-            $popo = static::METADATA['pluginClass']['default'];
-            $this->pluginClass = new $popo;
-        }
+        $this->setupPopoProperty('pluginClass');
 
         if ($this->pluginClass === null) {
             throw new UnexpectedValueException('Required value of "pluginClass" has not been set');
@@ -151,7 +142,7 @@ class StreamLoggerPluginConfigurator implements \Everon\Logger\Contract\Configur
 
     public function hasPluginClass(): bool
     {
-        return $this->pluginClass !== null || ($this->pluginClass !== null && array_key_exists('pluginClass', $this->updateMap));
+        return $this->pluginClass !== null;
     }
 
     /**
@@ -175,10 +166,7 @@ class StreamLoggerPluginConfigurator implements \Everon\Logger\Contract\Configur
      */
     public function requirePluginFactoryClass(): string
     {
-        if (static::METADATA['pluginFactoryClass']['type'] === 'popo' && $this->pluginFactoryClass === null) {
-            $popo = static::METADATA['pluginFactoryClass']['default'];
-            $this->pluginFactoryClass = new $popo;
-        }
+        $this->setupPopoProperty('pluginFactoryClass');
 
         if ($this->pluginFactoryClass === null) {
             throw new UnexpectedValueException('Required value of "pluginFactoryClass" has not been set');
@@ -188,7 +176,7 @@ class StreamLoggerPluginConfigurator implements \Everon\Logger\Contract\Configur
 
     public function hasPluginFactoryClass(): bool
     {
-        return $this->pluginFactoryClass !== null || ($this->pluginFactoryClass !== null && array_key_exists('pluginFactoryClass', $this->updateMap));
+        return $this->pluginFactoryClass !== null;
     }
 
     /**
@@ -212,10 +200,7 @@ class StreamLoggerPluginConfigurator implements \Everon\Logger\Contract\Configur
      */
     public function requireShouldBubble(): bool
     {
-        if (static::METADATA['shouldBubble']['type'] === 'popo' && $this->shouldBubble === null) {
-            $popo = static::METADATA['shouldBubble']['default'];
-            $this->shouldBubble = new $popo;
-        }
+        $this->setupPopoProperty('shouldBubble');
 
         if ($this->shouldBubble === null) {
             throw new UnexpectedValueException('Required value of "shouldBubble" has not been set');
@@ -225,7 +210,7 @@ class StreamLoggerPluginConfigurator implements \Everon\Logger\Contract\Configur
 
     public function hasShouldBubble(): bool
     {
-        return $this->shouldBubble !== null || ($this->shouldBubble !== null && array_key_exists('shouldBubble', $this->updateMap));
+        return $this->shouldBubble !== null;
     }
 
     /**
@@ -249,10 +234,7 @@ class StreamLoggerPluginConfigurator implements \Everon\Logger\Contract\Configur
      */
     public function requireStreamLocation(): string
     {
-        if (static::METADATA['streamLocation']['type'] === 'popo' && $this->streamLocation === null) {
-            $popo = static::METADATA['streamLocation']['default'];
-            $this->streamLocation = new $popo;
-        }
+        $this->setupPopoProperty('streamLocation');
 
         if ($this->streamLocation === null) {
             throw new UnexpectedValueException('Required value of "streamLocation" has not been set');
@@ -262,7 +244,7 @@ class StreamLoggerPluginConfigurator implements \Everon\Logger\Contract\Configur
 
     public function hasStreamLocation(): bool
     {
-        return $this->streamLocation !== null || ($this->streamLocation !== null && array_key_exists('streamLocation', $this->updateMap));
+        return $this->streamLocation !== null;
     }
 
     /**
@@ -286,10 +268,7 @@ class StreamLoggerPluginConfigurator implements \Everon\Logger\Contract\Configur
      */
     public function requireUseLocking(): bool
     {
-        if (static::METADATA['useLocking']['type'] === 'popo' && $this->useLocking === null) {
-            $popo = static::METADATA['useLocking']['default'];
-            $this->useLocking = new $popo;
-        }
+        $this->setupPopoProperty('useLocking');
 
         if ($this->useLocking === null) {
             throw new UnexpectedValueException('Required value of "useLocking" has not been set');
@@ -299,7 +278,7 @@ class StreamLoggerPluginConfigurator implements \Everon\Logger\Contract\Configur
 
     public function hasUseLocking(): bool
     {
-        return $this->useLocking !== null || ($this->useLocking !== null && array_key_exists('useLocking', $this->updateMap));
+        return $this->useLocking !== null;
     }
 
     #[\JetBrains\PhpStorm\ArrayShape(self::SHAPE_PROPERTIES)]
@@ -356,6 +335,11 @@ class StreamLoggerPluginConfigurator implements \Everon\Logger\Contract\Configur
         return empty($this->updateMap) === true;
     }
 
+    public function listModifiedProperties(): array
+    {
+        return array_keys($this->updateMap);
+    }
+
     public function requireAll(): self
     {
         $errors = [];
@@ -410,5 +394,13 @@ class StreamLoggerPluginConfigurator implements \Everon\Logger\Contract\Configur
         }
 
         return $this;
+    }
+
+    protected function setupPopoProperty($propertyName): void
+    {
+        if (static::METADATA[$propertyName]['type'] === 'popo' && $this->$propertyName === null) {
+            $popo = static::METADATA[$propertyName]['default'];
+            $this->$propertyName = new $popo;
+        }
     }
 }
