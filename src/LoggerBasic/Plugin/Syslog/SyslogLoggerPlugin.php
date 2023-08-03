@@ -29,8 +29,8 @@ class SyslogLoggerPlugin implements LoggerPluginInterface
             $this->configurator->requireIdent(),
             $this->configurator->requireFacility(),
             Logger::toMonologLevel($this->configurator->requireLogLevel()),
-            $this->configurator->shouldBubble(),
-            $this->configurator->getLogopts(),
+            (bool)$this->configurator->shouldBubble(),
+            (int)$this->configurator->getLogopts(),
         );
     }
 

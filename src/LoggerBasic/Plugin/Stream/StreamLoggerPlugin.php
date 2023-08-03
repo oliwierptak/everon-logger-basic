@@ -26,9 +26,9 @@ class StreamLoggerPlugin implements LoggerPluginInterface
         return new StreamHandler(
             $this->configurator->requireStreamLocation(),
             Logger::toMonologLevel($this->configurator->requireLogLevel()),
-            $this->configurator->shouldBubble(),
+            (bool)$this->configurator->shouldBubble(),
             $this->configurator->getFilePermission(),
-            $this->configurator->useLocking()
+            (bool)$this->configurator->useLocking()
         );
     }
 
