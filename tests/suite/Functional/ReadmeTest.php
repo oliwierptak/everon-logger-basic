@@ -4,11 +4,12 @@ declare(strict_types = 1);
 
 namespace EveronLoggerTests\Suite\Functional;
 
-use Everon\Logger\Configurator\Plugin\LoggerConfigurator;
-use Everon\Logger\Configurator\Plugin\StreamLoggerPluginConfigurator;
-use Everon\Logger\Configurator\Plugin\SyslogLoggerPluginConfigurator;
 use Everon\Logger\EveronLoggerFacade;
+use Everon\Shared\Logger\Configurator\Plugin\LoggerConfigurator;
+use Everon\Shared\LoggerBasic\Configurator\Plugin\StreamLoggerPluginConfigurator;
+use Everon\Shared\LoggerBasic\Configurator\Plugin\SyslogLoggerPluginConfigurator;
 use EveronLoggerTests\Stub\Processor\MemoryUsageProcessorStub;
+use Monolog\Level;
 use Monolog\Processor\HostnameProcessor;
 use Monolog\Processor\MemoryUsageProcessor;
 use PHPUnit\Framework\TestCase;
@@ -19,12 +20,12 @@ class ReadmeTest extends TestCase
     public function test_build_logger(): void
     {
         $streamPluginConfigurator = (new StreamLoggerPluginConfigurator)
-            ->setLogLevel('info')
+            ->setLogLevel(Level::Info)
             ->setStreamLocation('/tmp/example.log');
 
         $configurator = (new LoggerConfigurator())
-            ->addPluginConfigurator($streamPluginConfigurator)
-            ->addProcessorClass(MemoryUsageProcessorStub::class);
+            ->add($streamPluginConfigurator)
+            ->addProcessor(MemoryUsageProcessorStub::class);
 
         $logger = (new EveronLoggerFacade())->buildLogger($configurator);
 
@@ -37,15 +38,15 @@ class ReadmeTest extends TestCase
     public function test_build_logger2(): void
     {
         $configurator = (new LoggerConfigurator())
-            ->addProcessorClass(MemoryUsageProcessor::class)
-            ->addProcessorClass(HostnameProcessor::class)
-            ->addPluginConfigurator(
+            ->addProcessor(MemoryUsageProcessor::class)
+            ->addProcessor(HostnameProcessor::class)
+            ->add(
                 (new StreamLoggerPluginConfigurator)
-                    ->setLogLevel('debug')
+                    ->setLogLevel(Level::Debug)
                     ->setStreamLocation('/tmp/example.log')
-            )->addPluginConfigurator(
+            )->add(
                 (new SyslogLoggerPluginConfigurator())
-                    ->setLogLevel('info')
+                    ->setLogLevel(Level::Info)
                     ->setIdent('everon-logger-ident')
             );
 
@@ -60,15 +61,15 @@ class ReadmeTest extends TestCase
     public function test_build_logger3(): void
     {
         $configurator = (new LoggerConfigurator())
-            ->addProcessorClass(MemoryUsageProcessor::class)
-            ->addProcessorClass(HostnameProcessor::class)
-            ->addPluginConfigurator(
+            ->addProcessor(MemoryUsageProcessor::class)
+            ->addProcessor(HostnameProcessor::class)
+            ->add(
                 (new StreamLoggerPluginConfigurator)
-                    ->setLogLevel('debug')
+                    ->setLogLevel(Level::Debug)
                     ->setStreamLocation('/tmp/example.log')
-            )->addPluginConfigurator(
+            )->add(
                 (new SyslogLoggerPluginConfigurator())
-                    ->setLogLevel('info')
+                    ->setLogLevel(Level::Info)
                     ->setIdent('everon-logger-ident')
             );
 

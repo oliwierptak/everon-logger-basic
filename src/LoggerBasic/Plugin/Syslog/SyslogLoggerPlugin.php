@@ -2,11 +2,10 @@
 
 declare(strict_types = 1);
 
-namespace Everon\Logger\Plugin\Syslog;
+namespace Everon\LoggerBasic\Plugin\Syslog;
 
-use Everon\Logger\Configurator\Plugin\SyslogLoggerPluginConfigurator;
 use Everon\Logger\Contract\Plugin\LoggerPluginInterface;
-use JetBrains\PhpStorm\Pure;
+use Everon\Shared\LoggerBasic\Configurator\Plugin\SyslogLoggerPluginConfigurator;
 use Monolog\Handler\HandlerInterface;
 use Monolog\Handler\SyslogHandler;
 use Monolog\Logger;
@@ -17,7 +16,7 @@ class SyslogLoggerPlugin implements LoggerPluginInterface
     {
     }
 
-    #[Pure] public function canRun(): bool
+    public function canRun(): bool
     {
         return $this->configurator->hasIdent() &&
             $this->configurator->hasFacility() &&

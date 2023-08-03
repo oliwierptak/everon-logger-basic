@@ -1,7 +1,11 @@
+$:
+  config:
+    namespace: Everon\Shared\LoggerBasic\Configurator\Plugin
+
 EveronLogger:
   ErrorLogLoggerPluginConfigurator:
     default:
-      pluginClass: \Everon\Logger\Plugin\ErrorLog\ErrorLogLoggerPlugin::class
+      pluginClass: \Everon\LoggerBasic\Plugin\ErrorLog\ErrorLogLoggerPlugin::class
       messageType: \Monolog\Handler\ErrorLogHandler::OPERATING_SYSTEM
       expandNewlines: false
     property: [
@@ -11,13 +15,13 @@ EveronLogger:
 
   NulleeLoggerPluginConfigurator:
     default:
-      pluginClass: \Everon\Logger\Plugin\Nullee\NulleeLoggerPlugin::class
+      pluginClass: \Everon\LoggerBasic\Plugin\Nullee\NulleeLoggerPlugin::class
 
   StreamLoggerPluginConfigurator:
     default:
-      pluginClass: \Everon\Logger\Plugin\Stream\StreamLoggerPlugin::class
+      pluginClass: \Everon\LoggerBasic\Plugin\Stream\StreamLoggerPlugin::class
       useLocking: false
-      filePermission: 0644
+      filePermission: 644
     property: [
       {name: streamLocation, comment: "If a missing path can't be created, an UnexpectedValueException will be thrown on first write."},
       {name: filePermission, type: int, comment: "Optional file permissions (default (0644) are only for owner read/write)."},
@@ -26,7 +30,7 @@ EveronLogger:
 
   SyslogLoggerPluginConfigurator:
     default:
-      pluginClass: \Everon\Logger\Plugin\Syslog\SyslogLoggerPlugin::class
+      pluginClass: \Everon\LoggerBasic\Plugin\Syslog\SyslogLoggerPlugin::class
       facility: \LOG_LOCAL0
       logopts: \LOG_PID
     property: [

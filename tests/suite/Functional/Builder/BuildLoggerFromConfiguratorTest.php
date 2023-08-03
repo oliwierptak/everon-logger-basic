@@ -4,16 +4,27 @@ declare(strict_types = 1);
 
 namespace EveronLoggerTests\Suite\Functional\Builder;
 
-use Everon\Logger\Configurator\Plugin\StreamLoggerPluginConfigurator;
 use Everon\Logger\Exception\ConfiguratorValidationException;
-use Everon\Logger\Plugin\Stream\StreamLoggerPlugin;
+use Everon\LoggerBasic\Plugin\Stream\StreamLoggerPlugin;
+use Everon\Shared\LoggerBasic\Configurator\Plugin\StreamLoggerPluginConfigurator;
+use Everon\Shared\Testify\Logger\LoggerHelperTrait;
 use EveronLoggerTests\Stub\Processor\MemoryUsageProcessorStub;
 use EveronLoggerTests\Suite\Configurator\TestLoggerConfigurator;
-use EveronLoggerTests\Suite\Functional\AbstractPluginLoggerTest;
+use Monolog\Level;
+use PHPUnit\Framework\TestCase;
 use Psr\Log\LoggerInterface;
 
-class BuildLoggerFromConfiguratorTest extends AbstractPluginLoggerTest
+class BuildLoggerFromConfiguratorTest extends TestCase
 {
+    use LoggerHelperTrait;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        $this->init();
+    }
+
     public function test_build_empty_logger(): void
     {
         $logger = $this->facade->buildLogger($this->configurator);
@@ -31,7 +42,7 @@ class BuildLoggerFromConfiguratorTest extends AbstractPluginLoggerTest
 
         $this->configurator
             ->setValidateConfiguration(true)
-            ->addPluginConfigurator($streamPluginConfigurator);
+            ->add($streamPluginConfigurator);
 
         $logger = $this->facade->buildLogger($this->configurator);
 
@@ -47,7 +58,7 @@ class BuildLoggerFromConfiguratorTest extends AbstractPluginLoggerTest
 
         $this->configurator
             ->setValidateConfiguration(false)
-            ->addPluginConfigurator($streamPluginConfigurator);
+            ->add($streamPluginConfigurator);
 
         $logger = $this->facade->buildLogger($this->configurator);
 
@@ -60,10 +71,10 @@ class BuildLoggerFromConfiguratorTest extends AbstractPluginLoggerTest
     {
         $streamPluginConfigurator = (new StreamLoggerPluginConfigurator())
             ->setPluginClass(StreamLoggerPlugin::class)
-            ->setLogLevel('info')
+            ->setLogLevel(Level::Info)
             ->setStreamLocation($this->logFilename);
 
-        $this->configurator->addPluginConfigurator($streamPluginConfigurator);
+        $this->configurator->add($streamPluginConfigurator);
         $logger = $this->facade->buildLogger($this->configurator);
 
         $logger->debug('foo bar');
@@ -75,25 +86,25 @@ class BuildLoggerFromConfiguratorTest extends AbstractPluginLoggerTest
     {
         $streamPluginConfigurator = (new StreamLoggerPluginConfigurator())
             ->setPluginClass(StreamLoggerPlugin::class)
-            ->setLogLevel('info')
+            ->setLogLevel(Level::Info)
             ->setStreamLocation($this->logFilename);
 
         $this->configurator
-            ->addPluginConfigurator($streamPluginConfigurator)
-            ->addProcessorClass(MemoryUsageProcessorStub::class);
+            ->add($streamPluginConfigurator)
+            ->addProcessor(MemoryUsageProcessorStub::class);
 
         $logger = $this->facade->buildLogger($this->configurator);
 
         $logger->info('foo bar');
         $this->assertLogFile((new TestLoggerConfigurator())
             ->setMessage('foo bar')
-            ->setLevel('info')
+            ->setLogLevel(Level::Info)
             ->setExtra(['memory_peak_usage' => '5 MB']));
 
         $logger->warning('foo bar warning');
         $this->assertLogFile((new TestLoggerConfigurator())
             ->setMessage('foo bar warning')
-            ->setLevel('warning')
+            ->setLogLevel(Level::Warning)
             ->setExtra(['memory_peak_usage' => '5 MB']));
     }
 
@@ -101,12 +112,12 @@ class BuildLoggerFromConfiguratorTest extends AbstractPluginLoggerTest
     {
         $streamPluginConfigurator = (new StreamLoggerPluginConfigurator())
             ->setPluginClass(StreamLoggerPlugin::class)
-            ->setLogLevel('info')
+            ->setLogLevel(Level::Info)
             ->setStreamLocation($this->logFilename);
 
         $this->configurator
-            ->addPluginConfigurator($streamPluginConfigurator)
-            ->addProcessorClass(MemoryUsageProcessorStub::class);
+            ->add($streamPluginConfigurator)
+            ->addProcessor(MemoryUsageProcessorStub::class);
 
         $logger = $this->facade->buildLogger($this->configurator);
 
@@ -114,7 +125,7 @@ class BuildLoggerFromConfiguratorTest extends AbstractPluginLoggerTest
 
         $this->assertLogFile((new TestLoggerConfigurator())
             ->setMessage('foo bar')
-            ->setLevel('info')
+            ->setLogLevel(Level::Info)
             ->setContext(['buzz' => 'lorem ipsum'])
             ->setExtra(['memory_peak_usage' => '5 MB']));
     }

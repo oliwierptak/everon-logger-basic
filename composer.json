@@ -4,14 +4,15 @@
     "minimum-stability": "stable",
     "license": "MIT",
     "require": {
-        "php": "^8",
-        "everon/logger": "^4"
+        "php": "^8.1",
+        "everon/logger": "^3"
     },
     "require-dev": {
         "ext-json": "*",
-        "phpunit/phpunit": "^9",
-        "popo/generator": "^5",
-        "symfony/var-dumper": "^5"
+        "phpunit/phpunit": "^10",
+        "popo/generator": "^6",
+        "symfony/var-dumper": "^5|^6",
+        "phpstan/phpstan": "^1.10"
     },
     "autoload": {
         "psr-4": {
@@ -25,14 +26,17 @@
         }
     },
     "scripts": {
-        "popo": [
-            "vendor/bin/popo generate -q -c vendor/everon/logger/popo/shared-plugin.config.yml -s ./popo/everon-logger-basic.popo.yml"
+        "phpstan": [
+            "vendor/bin/phpstan analyse -c phpstan.neon"
         ],
-        "test": [
+        "popo": [
+            "vendor/bin/popo generate -c vendor/everon/logger/popo/shared-plugin.config.yml -s ./popo/everon-logger-basic.popo.yml"
+        ],
+        "tests": [
             "@popo",
             "vendor/bin/phpunit --no-coverage"
         ],
-        "test-ac": [
+        "tests-ac": [
             "@popo",
             "vendor/bin/phpunit --no-coverage --group acceptance tests/suit/Acceptance/"
         ],

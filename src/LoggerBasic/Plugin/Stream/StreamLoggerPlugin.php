@@ -2,11 +2,10 @@
 
 declare(strict_types = 1);
 
-namespace Everon\Logger\Plugin\Stream;
+namespace Everon\LoggerBasic\Plugin\Stream;
 
-use Everon\Logger\Configurator\Plugin\StreamLoggerPluginConfigurator;
 use Everon\Logger\Contract\Plugin\LoggerPluginInterface;
-use JetBrains\PhpStorm\Pure;
+use Everon\Shared\LoggerBasic\Configurator\Plugin\StreamLoggerPluginConfigurator;
 use Monolog\Handler\HandlerInterface;
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
@@ -17,7 +16,7 @@ class StreamLoggerPlugin implements LoggerPluginInterface
     {
     }
 
-    #[Pure] public function canRun(): bool
+    public function canRun(): bool
     {
         return $this->configurator->hasStreamLocation() && $this->configurator->hasLogLevel();
     }

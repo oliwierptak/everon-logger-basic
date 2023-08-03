@@ -45,7 +45,7 @@ Sends messages to PHP error_log() handler.
         ->setExpandNewlines(false);
     
     $configurator = (new LoggerConfigurator)
-        ->addPluginConfigurator($errorLogPluginConfigurator);
+        ->add($errorLogPluginConfigurator);
     
     $logger = (new EveronLoggerFacade())->buildLogger($configurator);
     
@@ -84,7 +84,7 @@ Pretend to send messages
         ->setLogLevel('debug');
     
     $configurator = (new LoggerConfigurator)
-        ->addPluginConfigurator($nulleePluginConfigurator);
+        ->add($nulleePluginConfigurator);
     
     $logger = (new EveronLoggerFacade())->buildLogger($configurator);
     
@@ -121,13 +121,14 @@ Sends messages to any PHP stream handler.
     use Everon\Logger\Configurator\Plugin\LoggerConfigurator;
     use Everon\Logger\Configurator\Plugin\StreamLoggerPluginConfigurator;
     use Everon\Logger\EveronLoggerFacade;
+    use Monolog\Level; 
   
     $streamPluginConfigurator = (new StreamLoggerPluginConfigurator)
-        ->setLogLevel('debug')
+        ->setLogLevel(Level::Debug)
         ->setStreamLocation('/tmp/debug.log');
     
     $configurator = (new LoggerConfigurator)
-        ->addPluginConfigurator($streamPluginConfigurator);
+        ->add($streamPluginConfigurator);
     
     $logger = (new EveronLoggerFacade())->buildLogger($configurator);
     
@@ -165,13 +166,14 @@ Sends messages to syslog service.
     use Everon\Logger\Configurator\Plugin\LoggerConfigurator;
     use Everon\Logger\Configurator\Plugin\SyslogLoggerPluginConfigurator;
     use Everon\Logger\EveronLoggerFacade;
+    use Monolog\Level; 
   
     $syslogPluginConfigurator = (new SyslogLoggerPluginConfigurator)
-        ->setLogLevel('warning')
+        ->setLogLevel(Level::Warning)
         ->setIdent('foo-bar-ident');
     
     $configurator = (new LoggerConfigurator)
-        ->addPluginConfigurator($syslogPluginConfigurator);
+        ->add($syslogPluginConfigurator);
     
     $logger = (new EveronLoggerFacade())->buildLogger($configurator);
     
@@ -180,9 +182,9 @@ Sends messages to syslog service.
 
 ## Requirements
 
-- PHP v8.x
+- PHP v8.1.x
+- Monolog v3.x
 
-_Note_: Use v2.x for compatibility with PHP v7.4.
 
 ## Installation
 

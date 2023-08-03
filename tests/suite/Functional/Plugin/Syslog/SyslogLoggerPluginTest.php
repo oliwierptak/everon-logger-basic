@@ -4,16 +4,20 @@ declare(strict_types = 1);
 
 namespace EveronLoggerTests\Suite\Functional\Plugin\Syslog;
 
-use Everon\Logger\Configurator\Plugin\SyslogLoggerPluginConfigurator;
 use Everon\Logger\Exception\ConfiguratorValidationException;
-use Everon\Logger\Plugin\Syslog\SyslogLoggerPlugin;
+use Everon\LoggerBasic\Plugin\Syslog\SyslogLoggerPlugin;
+use Everon\Shared\LoggerBasic\Configurator\Plugin\SyslogLoggerPluginConfigurator;
+use Everon\Shared\Testify\Logger\LoggerHelperTrait;
 use EveronLoggerTests\Stub\Processor\MemoryUsageProcessorStub;
 use EveronLoggerTests\Suite\Configurator\TestLoggerConfigurator;
-use EveronLoggerTests\Suite\Functional\AbstractPluginLoggerTest;
+use Monolog\Level;
+use PHPUnit\Framework\TestCase;
 use function shell_exec;
 
-class SyslogLoggerPluginTest extends AbstractPluginLoggerTest
+class SyslogLoggerPluginTest extends TestCase
 {
+    use LoggerHelperTrait;
+
     public function test_should_not_log_without_ident(): void
     {
         $this->configurator->setValidateConfiguration(false);
@@ -40,7 +44,7 @@ class SyslogLoggerPluginTest extends AbstractPluginLoggerTest
     {
         $this->configurator
             ->getConfiguratorByPluginName(SyslogLoggerPlugin::class)
-            ->setLogLevel('info')
+            ->setLogLevel(Level::Info)
             ->setIdent('everon-logger-ident');
 
         $logger = $this->facade->buildLogger($this->configurator);
@@ -54,7 +58,7 @@ class SyslogLoggerPluginTest extends AbstractPluginLoggerTest
     {
         $this->configurator
             ->getConfiguratorByPluginName(SyslogLoggerPlugin::class)
-            ->setLogLevel('info')
+            ->setLogLevel(Level::Info)
             ->setIdent('everon-logger-ident');
 
         $logger = $this->facade->buildLogger($this->configurator);
@@ -62,19 +66,19 @@ class SyslogLoggerPluginTest extends AbstractPluginLoggerTest
         $logger->info('foo bar');
         $this->assertLogFile((new TestLoggerConfigurator())
             ->setMessage('foo bar')
-            ->setLevel('info'));
+            ->setLogLevel(Level::Info));
 
         $logger->warning('foo bar warning');
         $this->assertLogFile((new TestLoggerConfigurator())
             ->setMessage('foo bar warning')
-            ->setLevel('warning'));
+            ->setLogLevel(Level::Warning));
     }
 
     public function test_should_log_context(): void
     {
         $this->configurator
             ->getConfiguratorByPluginName(SyslogLoggerPlugin::class)
-            ->setLogLevel('info')
+            ->setLogLevel(Level::Info)
             ->setIdent('everon-logger-ident');
 
         $logger = $this->facade->buildLogger($this->configurator);
@@ -83,16 +87,16 @@ class SyslogLoggerPluginTest extends AbstractPluginLoggerTest
 
         $this->assertLogFile((new TestLoggerConfigurator())
             ->setMessage('foo bar')
-            ->setLevel('info')
+            ->setLogLevel(Level::Info)
             ->setContext(['buzz' => 'lorem ipsum']));
     }
 
     public function test_should_log_context_and_extra(): void
     {
         $this->configurator
-            ->addProcessorClass(MemoryUsageProcessorStub::class)
+            ->addProcessor(MemoryUsageProcessorStub::class)
             ->getConfiguratorByPluginName(SyslogLoggerPlugin::class)
-            ->setLogLevel('info')
+            ->setLogLevel(Level::Info)
             ->setIdent('everon-logger-ident');
 
         $logger = $this->facade->buildLogger($this->configurator);
@@ -101,7 +105,7 @@ class SyslogLoggerPluginTest extends AbstractPluginLoggerTest
 
         $this->assertLogFile((new TestLoggerConfigurator())
             ->setMessage('foo bar')
-            ->setLevel('info')
+            ->setLogLevel(Level::Debug)
             ->setContext(['buzz' => 'lorem ipsum'])
             ->setExtra(['memory_peak_usage' => '5 MB']));
     }
@@ -110,11 +114,13 @@ class SyslogLoggerPluginTest extends AbstractPluginLoggerTest
     {
         parent::setUp();
 
+        $this->init();
+
         $syslogPluginConfigurator = (new SyslogLoggerPluginConfigurator())
             ->setPluginClass(SyslogLoggerPlugin::class)
-            ->setLogLevel('debug');
+            ->setLogLevel(Level::Debug);
 
-        $this->configurator->addPluginConfigurator($syslogPluginConfigurator);
+        $this->configurator->add($syslogPluginConfigurator);
 
         shell_exec('truncate -s 0 ' . $this->logFilename);
     }

@@ -4,17 +4,21 @@ declare(strict_types = 1);
 
 namespace EveronLoggerTests\Suite\Functional\Plugin\Nullee;
 
-use Everon\Logger\Configurator\Plugin\NulleeLoggerPluginConfigurator;
-use Everon\Logger\Plugin\Nullee\NulleeLoggerPlugin;
-use EveronLoggerTests\Suite\Functional\AbstractPluginLoggerTest;
+use Everon\LoggerBasic\Plugin\Nullee\NulleeLoggerPlugin;
+use Everon\Shared\LoggerBasic\Configurator\Plugin\NulleeLoggerPluginConfigurator;
+use Everon\Shared\Testify\Logger\LoggerHelperTrait;
+use Monolog\Level;
+use PHPUnit\Framework\TestCase;
 
-class NulleeLoggerPluginTest extends AbstractPluginLoggerTest
+class NulleeLoggerPluginTest extends TestCase
 {
+    use LoggerHelperTrait;
+
     public function test_should_not_log(): void
     {
         $this->configurator
             ->getConfiguratorByPluginName(NulleeLoggerPlugin::class)
-            ->setLogLevel('info');
+            ->setLogLevel(Level::Info);
 
         $logger = $this->facade->buildLogger($this->configurator);
 
@@ -28,9 +32,11 @@ class NulleeLoggerPluginTest extends AbstractPluginLoggerTest
     {
         parent::setUp();
 
-        $nulleePluginConfigurator = (new NulleeLoggerPluginConfigurator())
-            ->setLogLevel('debug');
+        $this->init();
 
-        $this->configurator->addPluginConfigurator($nulleePluginConfigurator);
+        $nulleePluginConfigurator = (new NulleeLoggerPluginConfigurator())
+            ->setLogLevel(Level::Debug);
+
+        $this->configurator->add($nulleePluginConfigurator);
     }
 }

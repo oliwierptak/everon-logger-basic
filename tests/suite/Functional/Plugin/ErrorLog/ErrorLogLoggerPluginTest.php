@@ -4,16 +4,20 @@ declare(strict_types = 1);
 
 namespace EveronLoggerTests\Suite\Functional\Plugin\ErrorLog;
 
-use Everon\Logger\Configurator\Plugin\ErrorLogLoggerPluginConfigurator;
 use Everon\Logger\Exception\ConfiguratorValidationException;
-use Everon\Logger\Plugin\ErrorLog\ErrorLogLoggerPlugin;
+use Everon\LoggerBasic\Plugin\ErrorLog\ErrorLogLoggerPlugin;
+use Everon\Shared\LoggerBasic\Configurator\Plugin\ErrorLogLoggerPluginConfigurator;
+use Everon\Shared\Testify\Logger\LoggerHelperTrait;
 use EveronLoggerTests\Stub\Processor\MemoryUsageProcessorStub;
 use EveronLoggerTests\Suite\Configurator\TestLoggerConfigurator;
-use EveronLoggerTests\Suite\Functional\AbstractPluginLoggerTest;
 use Monolog\Handler\ErrorLogHandler;
+use Monolog\Level;
+use PHPUnit\Framework\TestCase;
 
-class ErrorLogLoggerPluginTest extends AbstractPluginLoggerTest
+class ErrorLogLoggerPluginTest extends TestCase
 {
+    use LoggerHelperTrait;
+
     public function test_should_not_log_without_message_type(): void
     {
         $this->configurator->setValidateConfiguration(true);
@@ -34,7 +38,7 @@ class ErrorLogLoggerPluginTest extends AbstractPluginLoggerTest
     {
         $this->configurator
             ->getConfiguratorByPluginName(ErrorLogLoggerPlugin::class)
-            ->setLogLevel('info');
+            ->setLogLevel(Level::Info);
 
         $logger = $this->facade->buildLogger($this->configurator);
 
@@ -47,26 +51,26 @@ class ErrorLogLoggerPluginTest extends AbstractPluginLoggerTest
     {
         $this->configurator
             ->getConfiguratorByPluginName(ErrorLogLoggerPlugin::class)
-            ->setLogLevel('info');
+            ->setLogLevel(Level::Info);
 
         $logger = $this->facade->buildLogger($this->configurator);
 
         $logger->info('foo bar');
         $this->assertLogFile((new TestLoggerConfigurator())
             ->setMessage('foo bar')
-            ->setLevel('info'));
+            ->setLogLevel(Level::Info));
 
         $logger->warning('foo bar warning');
         $this->assertLogFile((new TestLoggerConfigurator())
             ->setMessage('foo bar warning')
-            ->setLevel('warning'));
+            ->setLogLevel(Level::Warning));
     }
 
     public function test_should_log_context(): void
     {
         $this->configurator
             ->getConfiguratorByPluginName(ErrorLogLoggerPlugin::class)
-            ->setLogLevel('info');
+            ->setLogLevel(Level::Info);
 
         $logger = $this->facade->buildLogger($this->configurator);
 
@@ -74,16 +78,16 @@ class ErrorLogLoggerPluginTest extends AbstractPluginLoggerTest
 
         $this->assertLogFile((new TestLoggerConfigurator())
             ->setMessage('foo bar')
-            ->setLevel('info')
+            ->setLogLevel(Level::Info)
             ->setContext(['buzz' => 'lorem ipsum']));
     }
 
     public function test_should_log_context_and_extra(): void
     {
         $this->configurator
-            ->addProcessorClass(MemoryUsageProcessorStub::class)
+            ->addProcessor(MemoryUsageProcessorStub::class)
             ->getConfiguratorByPluginName(ErrorLogLoggerPlugin::class)
-            ->setLogLevel('info');
+            ->setLogLevel(Level::Info);
 
         $logger = $this->facade->buildLogger($this->configurator);
 
@@ -91,7 +95,7 @@ class ErrorLogLoggerPluginTest extends AbstractPluginLoggerTest
 
         $this->assertLogFile((new TestLoggerConfigurator())
             ->setMessage('foo bar')
-            ->setLevel('info')
+            ->setLogLevel(Level::Info)
             ->setContext(['buzz' => 'lorem ipsum'])
             ->setExtra(['memory_peak_usage' => '5 MB']));
     }
@@ -100,14 +104,16 @@ class ErrorLogLoggerPluginTest extends AbstractPluginLoggerTest
     {
         parent::setUp();
 
+        $this->init();
+
         ini_set('error_log', $this->logFilename);
 
         $errorLogPluginConfigurator = (new ErrorLogLoggerPluginConfigurator())
             ->setPluginClass(ErrorLogLoggerPlugin::class)
-            ->setLogLevel('debug')
+            ->setLogLevel(Level::Debug)
             ->setMessageType(ErrorLogHandler::OPERATING_SYSTEM)
             ->setExpandNewlines(false);
 
-        $this->configurator->addPluginConfigurator($errorLogPluginConfigurator);
+        $this->configurator->add($errorLogPluginConfigurator);
     }
 }
