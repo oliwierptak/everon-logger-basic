@@ -17,12 +17,12 @@ Sends messages to PHP error_log() handler.
     
 - Configurator
 
-    `Everon\Logger\Configurator\Plugin\ErrorLogLoggerPluginConfigurator`
+    `Everon\Shared\LoggerBasic\Configurator\Plugin\ErrorLogLoggerPluginConfigurator`
  
 - Default Options
 
     ```php
-    'pluginClass' => \Everon\Logger\Plugin\ErrorLog\ErrorLogLoggerPlugin::class,
+    'pluginClass' => \Everon\LoggerBasic\Plugin\ErrorLog\ErrorLogLoggerPlugin::class,
     'pluginFactoryClass' => NULL,
     'logLevel' => 'debug',
     'shouldBubble' => true,
@@ -32,17 +32,13 @@ Sends messages to PHP error_log() handler.
   
 - Plugin
 
-  `Everon\Logger\Plugin\ErrorLog\ErrorLogLoggerPlugin`
+  `Everon\LoggerBasic\Plugin\ErrorLog\ErrorLogLoggerPlugin`
   
 - Usage
 
     ```php
-    use Everon\Logger\Configurator\Plugin\ErrorLogLoggerPluginConfigurator;
-    use Everon\Logger\Configurator\Plugin\LoggerConfigurator;
-    use Everon\Logger\EveronLoggerFacade;
-  
     $errorLogPluginConfigurator = (new ErrorLogLoggerPluginConfigurator)
-        ->setLogLevel('debug')
+        ->setLogLevel(Level::Debug)
         ->setMessageType(\Monolog\Handler\ErrorLogHandler::OPERATING_SYSTEM)
         ->setExpandNewlines(false);
     
@@ -60,12 +56,12 @@ Pretend to send messages
     
 - Configurator
 
-    `Everon\Logger\Configurator\Plugin\NulleeLoggerPluginConfigurator`
+    `Everon\Shared\LoggerBasic\Configurator\Plugin\NulleeLoggerPluginConfigurator`
  
 - Default Options
 
     ```php
-    'pluginClass' => \Everon\Logger\Plugin\Nullee\NulleeLoggerPlugin::class,
+    'pluginClass' => \Everon\LoggerBasic\Plugin\Nullee\NulleeLoggerPlugin::class,
     'pluginFactoryClass' => NULL,
     'logLevel' => 'debug',
     'shouldBubble' => true,
@@ -73,17 +69,13 @@ Pretend to send messages
   
 - Plugin
 
-  `Everon\Logger\Plugin\Nullee\NulleeLoggerPlugin`
+  `Everon\LoggerBasic\Plugin\Nullee\NulleeLoggerPlugin`
   
 - Usage
 
     ```php
-    use Everon\Logger\Configurator\Plugin\LoggerConfigurator;
-    use Everon\Logger\Configurator\Plugin\NulleeLoggerPluginConfigurator;
-    use Everon\Logger\EveronLoggerFacade;
-  
     $nulleePluginConfigurator = (new NulleeLoggerPluginConfigurator)
-        ->setLogLevel('debug');
+        ->setLogLevel(Level::Debug);
     
     $configurator = (new LoggerConfigurator)
         ->add($nulleePluginConfigurator);
@@ -99,12 +91,12 @@ Sends messages to any PHP stream handler.
     
 - Configurator
 
-    `Everon\Logger\Configurator\Plugin\StreamLoggerPluginConfigurator`
+    `Everon\Shared\LoggerBasic\Configurator\Plugin\StreamLoggerPluginConfigurator`
  
 - Default Options
 
     ```php
-    'pluginClass' => \Everon\Logger\Plugin\Stream\StreamLoggerPlugin::class,
+    'pluginClass' => \Everon\LoggerBasic\Plugin\Stream\StreamLoggerPlugin::class,
     'pluginFactoryClass' => NULL,
     'logLevel' => 'debug',
     'shouldBubble' => true,
@@ -115,16 +107,11 @@ Sends messages to any PHP stream handler.
   
 - Plugin
 
-  `Everon\Logger\Plugin\Stream\StreamLoggerPlugin`
+  `Everon\LoggerBasic\Plugin\Stream\StreamLoggerPlugin`
   
 - Usage
 
     ```php
-    use Everon\Logger\Configurator\Plugin\LoggerConfigurator;
-    use Everon\Logger\Configurator\Plugin\StreamLoggerPluginConfigurator;
-    use Everon\Logger\EveronLoggerFacade;
-    use Monolog\Level; 
-  
     $streamPluginConfigurator = (new StreamLoggerPluginConfigurator)
         ->setLogLevel(Level::Debug)
         ->setStreamLocation('/tmp/debug.log');
@@ -144,12 +131,12 @@ Sends messages to syslog service.
     
 - Configurator
 
-    `Everon\Logger\Configurator\Plugin\SyslogLoggerPluginConfigurator`
+    `Everon\Shared\LoggerBasic\Configurator\Plugin\SyslogLoggerPluginConfigurator`
  
 - Default Options
 
     ```php
-    'pluginClass' => \Everon\Logger\Plugin\Syslog\SyslogLoggerPlugin::class,
+    'pluginClass' => \Everon\LoggerBasic\Plugin\Syslog\SyslogLoggerPlugin::class,
     'pluginFactoryClass' => NULL,
     'logLevel' => 'debug',
     'shouldBubble' => true,
@@ -160,16 +147,11 @@ Sends messages to syslog service.
   
 - Plugin
 
-  `Everon\Logger\Plugin\Syslog\SyslogLoggerPlugin`
+  `Everon\LoggerBasic\Plugin\Syslog\SyslogLoggerPlugin`
   
 - Usage
 
     ```php
-    use Everon\Logger\Configurator\Plugin\LoggerConfigurator;
-    use Everon\Logger\Configurator\Plugin\SyslogLoggerPluginConfigurator;
-    use Everon\Logger\EveronLoggerFacade;
-    use Monolog\Level; 
-  
     $syslogPluginConfigurator = (new SyslogLoggerPluginConfigurator)
         ->setLogLevel(Level::Warning)
         ->setIdent('foo-bar-ident');
