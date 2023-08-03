@@ -1,5 +1,7 @@
 # EveronLoggerBasic
 
+[![Build and run tests](https://github.com/oliwierptak/everon-logger-basic/actions/workflows/main.yml/badge.svg)](https://github.com/oliwierptak/everon-logger-basic/actions/workflows/main.yml)
+
 Set of plugins that require no extra vendor dependencies for [EveronLogger](https://github.com/oliwierptak/everon-logger).
 
 - ErrorLog
