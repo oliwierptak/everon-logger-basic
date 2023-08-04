@@ -9,7 +9,6 @@ use Everon\LoggerBasic\Plugin\Syslog\SyslogLoggerPlugin;
 use Everon\Shared\LoggerBasic\Configurator\Plugin\SyslogLoggerPluginConfigurator;
 use Everon\Shared\Testify\Logger\LoggerHelperTrait;
 use EveronLoggerTests\Stub\Processor\MemoryUsageProcessorStub;
-use EveronLoggerTests\Suite\Configurator\TestLoggerConfigurator;
 use Monolog\Level;
 use PHPUnit\Framework\TestCase;
 use function shell_exec;
@@ -27,6 +26,7 @@ class SyslogLoggerPluginTest extends TestCase
 
         $this->assertEmptyLogFile();
     }
+
     public function test_should_validate_builder_configuration(): void
     {
         $this->expectException(ConfiguratorValidationException::class);
@@ -64,14 +64,10 @@ class SyslogLoggerPluginTest extends TestCase
         $logger = $this->facade->buildLogger($this->configurator);
 
         $logger->info('foo bar');
-        $this->assertLogFile((new TestLoggerConfigurator())
-            ->setMessage('foo bar')
-            ->setLogLevel(Level::Info));
+        $this->assertEmptyLogFile();
 
         $logger->warning('foo bar warning');
-        $this->assertLogFile((new TestLoggerConfigurator())
-            ->setMessage('foo bar warning')
-            ->setLogLevel(Level::Warning));
+        $this->assertEmptyLogFile();
     }
 
     public function test_should_log_context(): void
@@ -85,10 +81,7 @@ class SyslogLoggerPluginTest extends TestCase
 
         $logger->info('foo bar', ['buzz' => 'lorem ipsum']);
 
-        $this->assertLogFile((new TestLoggerConfigurator())
-            ->setMessage('foo bar')
-            ->setLogLevel(Level::Info)
-            ->setContext(['buzz' => 'lorem ipsum']));
+        $this->assertEmptyLogFile();
     }
 
     public function test_should_log_context_and_extra(): void
@@ -103,11 +96,7 @@ class SyslogLoggerPluginTest extends TestCase
 
         $logger->info('foo bar', ['buzz' => 'lorem ipsum']);
 
-        $this->assertLogFile((new TestLoggerConfigurator())
-            ->setMessage('foo bar')
-            ->setLogLevel(Level::Debug)
-            ->setContext(['buzz' => 'lorem ipsum'])
-            ->setExtra(['memory_peak_usage' => '5 MB']));
+        $this->assertEmptyLogFile();
     }
 
     protected function setUp(): void

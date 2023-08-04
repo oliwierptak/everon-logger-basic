@@ -12,9 +12,7 @@ use Monolog\Logger;
 
 class StreamLoggerPlugin implements LoggerPluginInterface
 {
-    public function __construct(protected StreamLoggerPluginConfigurator $configurator)
-    {
-    }
+    public function __construct(protected StreamLoggerPluginConfigurator $configurator) {}
 
     public function canRun(): bool
     {
@@ -28,7 +26,7 @@ class StreamLoggerPlugin implements LoggerPluginInterface
             Logger::toMonologLevel($this->configurator->requireLogLevel()),
             (bool)$this->configurator->shouldBubble(),
             $this->configurator->getFilePermission(),
-            (bool)$this->configurator->useLocking()
+            (bool)$this->configurator->useLocking(),
         );
     }
 

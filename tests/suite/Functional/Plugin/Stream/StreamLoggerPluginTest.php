@@ -52,14 +52,18 @@ class StreamLoggerPluginTest extends TestCase
         $logger = $this->facade->buildLogger($this->configurator);
 
         $logger->info('foo bar');
-        $this->assertLogFile((new TestLoggerConfigurator())
-            ->setMessage('foo bar')
-            ->setLogLevel(Level::Info));
+        $this->assertLogFile(
+            (new TestLoggerConfigurator())
+                ->setMessage('foo bar')
+                ->setLogLevel(Level::Info),
+        );
 
         $logger->warning('foo bar warning');
-        $this->assertLogFile((new TestLoggerConfigurator())
-            ->setMessage('foo bar warning')
-            ->setLogLevel(Level::Warning));
+        $this->assertLogFile(
+            (new TestLoggerConfigurator())
+                ->setMessage('foo bar warning')
+                ->setLogLevel(Level::Warning),
+        );
     }
 
     public function test_should_log_context(): void
@@ -73,10 +77,12 @@ class StreamLoggerPluginTest extends TestCase
 
         $logger->info('foo bar', ['buzz' => 'lorem ipsum']);
 
-        $this->assertLogFile((new TestLoggerConfigurator())
-            ->setMessage('foo bar')
-            ->setLogLevel(Level::Info)
-            ->setContext(['buzz' => 'lorem ipsum']));
+        $this->assertLogFile(
+            (new TestLoggerConfigurator())
+                ->setMessage('foo bar')
+                ->setLogLevel(Level::Info)
+                ->setContext(['buzz' => 'lorem ipsum']),
+        );
     }
 
     public function test_should_log_context_and_extra(): void
@@ -91,11 +97,13 @@ class StreamLoggerPluginTest extends TestCase
 
         $logger->info('foo bar', ['buzz' => 'lorem ipsum']);
 
-        $this->assertLogFile((new TestLoggerConfigurator())
-            ->setMessage('foo bar')
-            ->setLogLevel(Level::Info)
-            ->setContext(['buzz' => 'lorem ipsum'])
-            ->setExtra(['memory_peak_usage' => '5 MB']));
+        $this->assertLogFile(
+            (new TestLoggerConfigurator())
+                ->setMessage('foo bar')
+                ->setLogLevel(Level::Info)
+                ->setContext(['buzz' => 'lorem ipsum'])
+                ->setExtra(['memory_peak_usage' => '5 MB']),
+        );
     }
 
     public function test_should_use_plugin_factory(): void
@@ -111,11 +119,13 @@ class StreamLoggerPluginTest extends TestCase
 
         $logger->info('foo bar', ['buzz' => 'lorem ipsum']);
 
-        $this->assertLogFile((new TestLoggerConfigurator())
-            ->setMessage('foo bar')
-            ->setLogLevel(Level::Info)
-            ->setContext(['buzz' => 'lorem ipsum'])
-            ->setExtra(['memory_peak_usage' => '5 MB']));
+        $this->assertLogFile(
+            (new TestLoggerConfigurator())
+                ->setMessage('foo bar')
+                ->setLogLevel(Level::Info)
+                ->setContext(['buzz' => 'lorem ipsum'])
+                ->setExtra(['memory_peak_usage' => '5 MB']),
+        );
     }
 
     protected function setUp(): void

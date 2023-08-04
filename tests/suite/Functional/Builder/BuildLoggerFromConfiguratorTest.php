@@ -96,16 +96,20 @@ class BuildLoggerFromConfiguratorTest extends TestCase
         $logger = $this->facade->buildLogger($this->configurator);
 
         $logger->info('foo bar');
-        $this->assertLogFile((new TestLoggerConfigurator())
-            ->setMessage('foo bar')
-            ->setLogLevel(Level::Info)
-            ->setExtra(['memory_peak_usage' => '5 MB']));
+        $this->assertLogFile(
+            (new TestLoggerConfigurator())
+                ->setMessage('foo bar')
+                ->setLogLevel(Level::Info)
+                ->setExtra(['memory_peak_usage' => '5 MB']),
+        );
 
         $logger->warning('foo bar warning');
-        $this->assertLogFile((new TestLoggerConfigurator())
-            ->setMessage('foo bar warning')
-            ->setLogLevel(Level::Warning)
-            ->setExtra(['memory_peak_usage' => '5 MB']));
+        $this->assertLogFile(
+            (new TestLoggerConfigurator())
+                ->setMessage('foo bar warning')
+                ->setLogLevel(Level::Warning)
+                ->setExtra(['memory_peak_usage' => '5 MB']),
+        );
     }
 
     public function test_should_log_context_and_extra(): void
@@ -123,10 +127,12 @@ class BuildLoggerFromConfiguratorTest extends TestCase
 
         $logger->info('foo bar', ['buzz' => 'lorem ipsum']);
 
-        $this->assertLogFile((new TestLoggerConfigurator())
-            ->setMessage('foo bar')
-            ->setLogLevel(Level::Info)
-            ->setContext(['buzz' => 'lorem ipsum'])
-            ->setExtra(['memory_peak_usage' => '5 MB']));
+        $this->assertLogFile(
+            (new TestLoggerConfigurator())
+                ->setMessage('foo bar')
+                ->setLogLevel(Level::Info)
+                ->setContext(['buzz' => 'lorem ipsum'])
+                ->setExtra(['memory_peak_usage' => '5 MB']),
+        );
     }
 }

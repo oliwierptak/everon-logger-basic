@@ -11,9 +11,7 @@ use Monolog\Handler\NullHandler;
 
 class NulleeLoggerPlugin implements LoggerPluginInterface
 {
-    public function __construct(protected NulleeLoggerPluginConfigurator $configurator)
-    {
-    }
+    public function __construct(protected NulleeLoggerPluginConfigurator $configurator) {}
 
     public function canRun(): bool
     {

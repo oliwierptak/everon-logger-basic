@@ -12,9 +12,7 @@ use Monolog\Logger;
 
 class ErrorLogLoggerPlugin implements LoggerPluginInterface
 {
-    public function __construct(protected ErrorLogLoggerPluginConfigurator $configurator)
-    {
-    }
+    public function __construct(protected ErrorLogLoggerPluginConfigurator $configurator) {}
 
     public function canRun(): bool
     {
@@ -27,7 +25,7 @@ class ErrorLogLoggerPlugin implements LoggerPluginInterface
             $this->configurator->requireMessageType(),
             Logger::toMonologLevel($this->configurator->requireLogLevel()),
             (bool)$this->configurator->shouldBubble(),
-            (bool)$this->configurator->expandNewlines()
+            (bool)$this->configurator->expandNewlines(),
         );
     }
 

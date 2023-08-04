@@ -12,9 +12,7 @@ use Monolog\Logger;
 
 class SyslogLoggerPlugin implements LoggerPluginInterface
 {
-    public function __construct(protected SyslogLoggerPluginConfigurator $configurator)
-    {
-    }
+    public function __construct(protected SyslogLoggerPluginConfigurator $configurator) {}
 
     public function canRun(): bool
     {

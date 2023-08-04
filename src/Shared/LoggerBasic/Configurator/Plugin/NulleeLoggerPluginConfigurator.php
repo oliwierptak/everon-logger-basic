@@ -6,7 +6,7 @@
  * Everon logger configuration file. Auto-generated.
  */
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace Everon\Shared\LoggerBasic\Configurator\Plugin;
 
@@ -14,14 +14,11 @@ use DateTime;
 use DateTimeZone;
 use Throwable;
 use UnexpectedValueException;
-
 use function array_filter;
 use function array_key_exists;
 use function array_keys;
-use function array_replace_recursive;
 use function in_array;
 use function sort;
-
 use const ARRAY_FILTER_USE_KEY;
 use const SORT_STRING;
 
@@ -132,7 +129,7 @@ class NulleeLoggerPluginConfigurator implements \Everon\Logger\Contract\Configur
 
         if (empty($errors) === false) {
             throw new UnexpectedValueException(
-                implode("\n", $errors)
+                implode("\n", $errors),
             );
         }
 
@@ -146,7 +143,6 @@ class NulleeLoggerPluginConfigurator implements \Everon\Logger\Contract\Configur
             'pluginFactoryClass' => 'pluginFactoryClass',
             'shouldBubble' => 'shouldBubble',
         ];
-
 
 
         foreach ($metadata as $name => $mappedName) {
@@ -268,7 +264,6 @@ class NulleeLoggerPluginConfigurator implements \Everon\Logger\Contract\Configur
         }
 
 
-
         return $data;
     }
 
@@ -285,7 +280,9 @@ class NulleeLoggerPluginConfigurator implements \Everon\Logger\Contract\Configur
 
             if (self::METADATA[$name]['type'] === 'popo') {
                 $popo = self::METADATA[$name]['default'];
-                $value = $this->$name !== null ? $this->$name->toMappedArray(...$mappings) : (new $popo)->toMappedArray(...$mappings);
+                $value = $this->$name !== null ? $this->$name->toMappedArray(...$mappings) : (new $popo)->toMappedArray(
+                    ...$mappings,
+                );
             }
 
             $key = $this->mapKeyName($mappings, $propertyMetadata['mappingPolicyValue']);
@@ -319,22 +316,22 @@ class NulleeLoggerPluginConfigurator implements \Everon\Logger\Contract\Configur
             $mappingPolicy['snake-to-camel'] =
                 static function (string $key): string {
                     $stringTokens = explode('_', mb_strtolower($key));
-                $camelizedString = array_shift($stringTokens);
-                foreach ($stringTokens as $token) {
-                    $camelizedString .= ucfirst($token);
-                }
+                    $camelizedString = array_shift($stringTokens);
+                    foreach ($stringTokens as $token) {
+                        $camelizedString .= ucfirst($token);
+                    }
 
-                return $camelizedString;
+                    return $camelizedString;
                 };
 
             $mappingPolicy['camel-to-snake'] =
                 static function (string $key): string {
                     $camelizedStringTokens = preg_split('/(?<=[^A-Z])(?=[A-Z])/', $key);
-                if ($camelizedStringTokens !== false && count($camelizedStringTokens) > 0) {
-                    $key = mb_strtolower(implode('_', $camelizedStringTokens));
-                }
+                    if ($camelizedStringTokens !== false && count($camelizedStringTokens) > 0) {
+                        $key = mb_strtolower(implode('_', $camelizedStringTokens));
+                    }
 
-                return $key;
+                    return $key;
                 };
 
         }
@@ -393,7 +390,9 @@ class NulleeLoggerPluginConfigurator implements \Everon\Logger\Contract\Configur
 
     public function setPluginClass(?string $pluginClass): self
     {
-        $this->pluginClass = $pluginClass; $this->updateMap['pluginClass'] = true; return $this;
+        $this->pluginClass = $pluginClass;
+        $this->updateMap['pluginClass'] = true;
+        return $this;
     }
 
     /**
@@ -428,7 +427,9 @@ class NulleeLoggerPluginConfigurator implements \Everon\Logger\Contract\Configur
      */
     public function setPluginFactoryClass(?string $pluginFactoryClass): self
     {
-        $this->pluginFactoryClass = $pluginFactoryClass; $this->updateMap['pluginFactoryClass'] = true; return $this;
+        $this->pluginFactoryClass = $pluginFactoryClass;
+        $this->updateMap['pluginFactoryClass'] = true;
+        return $this;
     }
 
     /**
@@ -463,6 +464,8 @@ class NulleeLoggerPluginConfigurator implements \Everon\Logger\Contract\Configur
      */
     public function setShouldBubble(bool $shouldBubble): self
     {
-        $this->shouldBubble = $shouldBubble; $this->updateMap['shouldBubble'] = true; return $this;
+        $this->shouldBubble = $shouldBubble;
+        $this->updateMap['shouldBubble'] = true;
+        return $this;
     }
 }
