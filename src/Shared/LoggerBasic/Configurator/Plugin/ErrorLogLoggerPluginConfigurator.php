@@ -6,7 +6,7 @@
  * Everon logger configuration file. Auto-generated.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Everon\Shared\LoggerBasic\Configurator\Plugin;
 
@@ -14,11 +14,14 @@ use DateTime;
 use DateTimeZone;
 use Throwable;
 use UnexpectedValueException;
+
 use function array_filter;
 use function array_key_exists;
 use function array_keys;
+use function array_replace_recursive;
 use function in_array;
 use function sort;
+
 use const ARRAY_FILTER_USE_KEY;
 use const SORT_STRING;
 
@@ -161,7 +164,7 @@ class ErrorLogLoggerPluginConfigurator implements \Everon\Logger\Contract\Config
 
         if (empty($errors) === false) {
             throw new UnexpectedValueException(
-                implode("\n", $errors),
+                implode("\n", $errors)
             );
         }
 
@@ -177,6 +180,7 @@ class ErrorLogLoggerPluginConfigurator implements \Everon\Logger\Contract\Config
             'messageType' => 'messageType',
             'expandNewlines' => 'expandNewlines',
         ];
+
 
 
         foreach ($metadata as $name => $mappedName) {
@@ -300,6 +304,7 @@ class ErrorLogLoggerPluginConfigurator implements \Everon\Logger\Contract\Config
         }
 
 
+
         return $data;
     }
 
@@ -316,9 +321,7 @@ class ErrorLogLoggerPluginConfigurator implements \Everon\Logger\Contract\Config
 
             if (self::METADATA[$name]['type'] === 'popo') {
                 $popo = self::METADATA[$name]['default'];
-                $value = $this->$name !== null ? $this->$name->toMappedArray(...$mappings) : (new $popo)->toMappedArray(
-                    ...$mappings,
-                );
+                $value = $this->$name !== null ? $this->$name->toMappedArray(...$mappings) : (new $popo)->toMappedArray(...$mappings);
             }
 
             $key = $this->mapKeyName($mappings, $propertyMetadata['mappingPolicyValue']);
@@ -352,22 +355,22 @@ class ErrorLogLoggerPluginConfigurator implements \Everon\Logger\Contract\Config
             $mappingPolicy['snake-to-camel'] =
                 static function (string $key): string {
                     $stringTokens = explode('_', mb_strtolower($key));
-                    $camelizedString = array_shift($stringTokens);
-                    foreach ($stringTokens as $token) {
-                        $camelizedString .= ucfirst($token);
-                    }
+                $camelizedString = array_shift($stringTokens);
+                foreach ($stringTokens as $token) {
+                    $camelizedString .= ucfirst($token);
+                }
 
-                    return $camelizedString;
+                return $camelizedString;
                 };
 
             $mappingPolicy['camel-to-snake'] =
                 static function (string $key): string {
                     $camelizedStringTokens = preg_split('/(?<=[^A-Z])(?=[A-Z])/', $key);
-                    if ($camelizedStringTokens !== false && count($camelizedStringTokens) > 0) {
-                        $key = mb_strtolower(implode('_', $camelizedStringTokens));
-                    }
+                if ($camelizedStringTokens !== false && count($camelizedStringTokens) > 0) {
+                    $key = mb_strtolower(implode('_', $camelizedStringTokens));
+                }
 
-                    return $key;
+                return $key;
                 };
 
         }
@@ -426,9 +429,7 @@ class ErrorLogLoggerPluginConfigurator implements \Everon\Logger\Contract\Config
 
     public function setPluginClass(?string $pluginClass): self
     {
-        $this->pluginClass = $pluginClass;
-        $this->updateMap['pluginClass'] = true;
-        return $this;
+        $this->pluginClass = $pluginClass; $this->updateMap['pluginClass'] = true; return $this;
     }
 
     /**
@@ -463,9 +464,7 @@ class ErrorLogLoggerPluginConfigurator implements \Everon\Logger\Contract\Config
      */
     public function setPluginFactoryClass(?string $pluginFactoryClass): self
     {
-        $this->pluginFactoryClass = $pluginFactoryClass;
-        $this->updateMap['pluginFactoryClass'] = true;
-        return $this;
+        $this->pluginFactoryClass = $pluginFactoryClass; $this->updateMap['pluginFactoryClass'] = true; return $this;
     }
 
     /**
@@ -500,9 +499,7 @@ class ErrorLogLoggerPluginConfigurator implements \Everon\Logger\Contract\Config
      */
     public function setShouldBubble(bool $shouldBubble): self
     {
-        $this->shouldBubble = $shouldBubble;
-        $this->updateMap['shouldBubble'] = true;
-        return $this;
+        $this->shouldBubble = $shouldBubble; $this->updateMap['shouldBubble'] = true; return $this;
     }
 
     /**
@@ -537,9 +534,7 @@ class ErrorLogLoggerPluginConfigurator implements \Everon\Logger\Contract\Config
      */
     public function setMessageType(?int $messageType): self
     {
-        $this->messageType = $messageType;
-        $this->updateMap['messageType'] = true;
-        return $this;
+        $this->messageType = $messageType; $this->updateMap['messageType'] = true; return $this;
     }
 
     /**
@@ -574,8 +569,6 @@ class ErrorLogLoggerPluginConfigurator implements \Everon\Logger\Contract\Config
      */
     public function setExpandNewlines(bool $expandNewlines): self
     {
-        $this->expandNewlines = $expandNewlines;
-        $this->updateMap['expandNewlines'] = true;
-        return $this;
+        $this->expandNewlines = $expandNewlines; $this->updateMap['expandNewlines'] = true; return $this;
     }
 }
